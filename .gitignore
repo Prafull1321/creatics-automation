@@ -1,7 +1,69 @@
+# node_modules/
+# cypress/videos/
+# cypress/screenshots/
+# dist/
+# .env
+# cypress/fixtures/videos/
+# cypress/fixtures/images/
+# ------------------------------
+# Node.js
+# ------------------------------
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+coverage/
+*.log
+
+# ------------------------------
+# Cypress
+# ------------------------------
+# Cypress configuration artifacts
 cypress/videos/
 cypress/screenshots/
-dist/
-.env
+cypress/downloads/
+cypress/reports/
+
+# Cypress large fixture data
 cypress/fixtures/videos/
 cypress/fixtures/images/
+
+# Cypress cache
+.cypress-cache/
+.cypress/
+
+# ------------------------------
+# Editor / OS files
+# ------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------
+# Temporary files
+# ------------------------------
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
+
+# ------------------------------
+# Git / CI files
+# ------------------------------
+.gitignore
+.gitmodules
+*.lock
