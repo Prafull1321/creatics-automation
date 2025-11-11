@@ -3,3 +3,5 @@ cypress/videos/
 cypress/screenshots/
 dist/
 .env
+cypress/fixtures/videos/
+cypress/fixtures/images/
