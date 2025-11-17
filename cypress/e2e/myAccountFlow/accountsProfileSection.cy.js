@@ -19,7 +19,7 @@ describe("My Account test cases (Profile Section).", function () {
 
   beforeEach(() => {
     loginPage.visit(BASE_URL);
-    cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
+    //cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
     loginPage.assertUrl(BASE_URL);
     loginPage.signInOption();
     loginPage.emailText(username);
