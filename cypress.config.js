@@ -5,6 +5,11 @@ module.exports = defineConfig({
   pageLoadTimeout: 60000, // 60 seconds timeout for page load
   retries: 2, // retries attempts
 
+//   // cypress.config.js
+// module.exports = defineConfig({ 
+//     defaultCommandTimeout: 10000, // 10 seconds timeout for all commands
+//     pageLoadTimeout: 120000, // optional
+
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/reports", // Directory where reports are stored

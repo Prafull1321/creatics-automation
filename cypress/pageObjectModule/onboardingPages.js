@@ -1,112 +1,3 @@
-// class onboardSetup1 {
-//   pageHeading() {
-//     return cy
-//       .get(".heading1")
-//       .contains("Welcome to Creatics - Let's Get Started!");
-//   }
-
-//   step1Skip() {
-//     return cy.get(".skipbtn").click();
-//   }
-
-//   uploadProfile() {
-//     return cy.get(".imgUpload").click();
-//   }
-
-//   profileImageSelect() {
-//     return cy.get("input[type=file]");
-//   }
-
-//   imageCropping() {
-//     return cy.get("image-cropper.ng-star-inserted");
-//   }
-//   cropButton() {
-//     return cy.get(".cropButton").click();
-//   }
-
-//   wordsTextbox() {
-//     return cy.get(".inputbox1");
-//   }
-
-//   profileSubmit() {
-//     return cy.get(".submitbtn").click();
-//   }
-// }
-
-// class onboardSetup2 {
-//   notificationPopup() {
-//     return cy.get(".custom-dialog-container");
-//   }
-
-//   popupLink() {
-//     return cy.get(".ng-tns-c34-0").click();
-//   }
-
-//   popupGotitButton() {
-//     return cy.get(".custom-button").click();
-//   }
-
-//   backButtonOnInterest() {
-//     return cy.get("backArrow").click();
-//   }
-//   skipInterest() {
-//     return cy.get(".skipbtn").click();
-//   }
-
-//   fanOptions(text) {
-//     return cy.get(".slider").contains(text).click();
-//   }
-
-//   creatorOptions(text) {
-//     return cy.get(".slider1").contains(text).click();
-//   }
-
-//   interestSubmit() {
-//     return cy.get(".submitbtn").click();
-//   }
-// }
-
-// class onboardSetup3 {
-//   skipTreasury() {
-//     return cy.get(".skipbtn").click();
-//   }
-
-//   titleText(text) {
-//     return cy.get("#title").first().type(text);
-//   }
-
-//   categoryOption(text) {
-//     return cy.get("#category").select(text);
-//   }
-//   descriptionText(text) {
-//     return cy.get("#description").type(text);
-//   }
-//   linkText() {
-//     return cy.get("#title").next().type(text);
-//   }
-//   imageUploadButton() {
-//     return cy.get(".imgUpload").click();
-//   }
-//   treasuryImageSelect(text) {
-//     return cy.get("input[type=file]").selectFile(text, {
-//       force: true,
-//     });
-//   }
-//   treasuryImageCrop() {
-//     return cy.get(".cropButton").click();
-//   }
-//   treasurySubmit() {
-//     return cy.get(".submitbtn").click();
-//   }
-//   treasuryBackButton() {
-//     return cy.get(".backArrow").click();
-//   }
-// }
-
-// export default new onboardSetup1();
-
-// ---------------
-
 class OnboardSetup1 {
   getPageHeading() {
     return cy
@@ -130,7 +21,7 @@ class OnboardSetup1 {
   }
   //----------------------
   getCroppingArea() {
-    return cy.get(".cropper");
+    return cy.get("div[role='presentation']");
   }
   dragCropArea(startX, startY, endX, endY) {
     // Simulate mouse events to define the crop area
@@ -197,7 +88,7 @@ class OnboardSetup2 {
   }
 
   getNotificationPopup() {
-    return cy.get(".custom-dialog-container");
+    return cy.get(".custom-dialog-container.ng-tns-c3692996703-0.ng-star-inserted");
   }
 
   clickPopupLink() {
@@ -388,7 +279,7 @@ class OnboardSetup3 {
   }
   //----------------------
   getCroppingArea() {
-    return cy.get(".cropper");
+    return cy.get("div[role='presentation']");
   }
   //----------------------
   dragCropArea(startX, startY, endX, endY) {
@@ -411,7 +302,7 @@ class OnboardSetup3 {
   }
   //----------------------
   clickTreasuryImageCrop() {
-    cy.get(".cropButton").click();
+    cy.get("div[role='presentation']").click();
   }
   //----------------------
   getUploadedImage() {
@@ -449,7 +340,7 @@ class OnboardSetup4 {
     return cy
       .get(".textClass")
       .contains(
-        "Upload your own or use our I Am Video tool to create a fun-facts profile video like no other."
+        "Upload a short I Am Video that speaks to something(s) you love or do. This can be anything such as a video about cooking, your dog, or something you love to create or experience."
       );
   }
   communityPageBack() {

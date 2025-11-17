@@ -1,8 +1,15 @@
 class LoginPage {
   // Selectors
+  // visit(URL) {
+  //   return cy.visit(URL, { failOnStatusCode: false });
+  // }
+
   visit(URL) {
-    return cy.visit(URL, { failOnStatusCode: false });
-  }
+  return cy.visit(URL, {
+    failOnStatusCode: false, timeout: 60000,
+    onBeforeLoad: () => {},  // prevents waiting for load event
+  });
+}
 
   assertUrl(loggedInURL) {
     return cy.url().should("eq", loggedInURL);

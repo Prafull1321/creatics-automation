@@ -14,10 +14,10 @@ class ProfilePage {
     return cy.get(".span-content").click();
   }
   uploadProfilePopup() {
-    return cy.get(".mat-dialog-container");
+    return cy.get(".mat-mdc-dialog-surface mdc-dialog__surface");
   }
   uploadProfilePopupTitle() {
-    return cy.get(".mat-dialog-title").contains("Upload Profile Image");
+    return cy.get("vdocaption ng-star-inserted");
   }
   clickProfilePopupUpload() {
     return cy.get(".icons").click();
@@ -35,7 +35,7 @@ class ProfilePage {
     return cy.get(".mat-button-wrapper").click();
   }
   uploadProfilePopupSaveBtn() {
-    return cy.get(".btn").contains("Save");
+    return cy.get(".btn btn-primary save-treasury-btn universal-button-gradient").contains("Save");
   }
   clickUploadProfilePopupSaveBtn() {
     return cy.get(".btn").contains("Save").click();
@@ -113,7 +113,7 @@ class ProfilePage {
     return cy.get('[alt="..."]').click();
   }
   treasuryPopup() {
-    return cy.get(".mat-dialog-container");
+    return cy.get(".mat-mdc-dialog-surface.mdc-dialog__surface");
   }
   treasuryPopupHeader() {
     return cy.get(".mat-dialog-title").contains("Upload a Treasure");
@@ -148,7 +148,7 @@ class ProfilePage {
     return cy.get("#fileupload").selectFile(ImageFile, { force: true });
   }
   getTreasuryPopupCroppedImage() {
-    return cy.get(".move").click();
+    return cy.get("div[role='presentation']").click();
   }
   cropTreasuryPopupImage() {
     return cy.get(".btn").contains("CROP").click();
@@ -192,28 +192,28 @@ class ProfilePage {
   }
   //--------------------------------
   treasuryConfirmPopup() {
-    return cy.get(".mat-dialog-container");
+    return cy.get(".mat-mdc-dialog-surface.mdc-dialog__surface");
   }
   treasuryConfirmPopupNoOption() {
-    return cy.get(".mat-button-wrapper").click();
+    return cy.get("button[color='primary']").click();
   }
   treasuryConfirmPopupYesOption() {
-    return cy.get(".btn").contains("Yes").click();
+    return cy.get("button[type='submit']").click();
   }
   confirmPopupHideQuestion() {
     return cy
-      .get(".mat-dialog-container")
+      .get(".mat-mdc-dialog-surface.mdc-dialog__surface")
       .contains("Are you sure you want to hide this Treasure?");
   }
 
   confirmPopupUnHideQuestion() {
     return cy
-      .get(".mat-dialog-container")
+      .get(".mat-mdc-dialog-surface.mdc-dialog__surface")
       .contains("Are you sure you want to un-hide this Treasure?");
   }
   confirmpopupDeleteQuestion() {
     return cy
-      .get(".mat-dialog-container")
+      .get(".mat-mdc-dialog-surface.mdc-dialog__surface")
       .contains("Are you sure you want to delete this Treasure?");
   }
 
@@ -266,7 +266,7 @@ class ProfilePage {
       .click();
   }
   treasuryDeletePopup() {
-    return cy.get(".mat-dialog-container");
+    return cy.get(".mat-mdc-dialog-surface mdc-dialog__surface");
   }
   treasuryDeleteNoOption() {
     return cy.get(".mat-button-wrapper").click();
@@ -291,16 +291,16 @@ class ProfilePage {
   }
 
   treasuryAccessPopup() {
-    return cy.get(".mat-dialog-container");
+    return cy.get(".mat-mdc-dialog-surface.mdc-dialog__surface");
   }
   treasuryAccessPopupTitle(popupTitle) {
-    return cy.get(".mat-dialog-title").contains(popupTitle);
+    return cy.get("mat-mdc-dialog-title mdc-dialog__title popup-title ng-star-inserted").contains(popupTitle);
   }
   treasuryAccessPopupSubText(Subtext) {
     return cy.get(".desc-dialog").contains(Subtext);
   }
   clickTreasuryAccessPopupDismissBtn() {
-    return cy.get(".mat-button-wrapper").click();
+    return cy.get(".mdc-button__label").click();
   }
   treasuryAccessPopupImage() {
     return cy.get("#imgForTreasury");

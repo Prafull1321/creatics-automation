@@ -1,9 +1,9 @@
 import LoginPage from "../../pageObjectModule/loginPage";
 
 describe("Sign-In Page Test Cases", function () {
-  const username = "saurabh.gaikwad@scalevista.com";
-  const mainPassword = "Saurabh@01";
-  const newPassword = "Saurabh@01";
+  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const mainPassword = "Test@123";
+  const newPassword = "Test@123";
   const productionURL = "https://creatics.org/";
   const productionLoggedIn = "https://creatics.org/userProfiles/home";
   const Mobile_1_URL = "https://mobile.creatics.org/";
@@ -15,7 +15,7 @@ describe("Sign-In Page Test Cases", function () {
 
   beforeEach(() => {
     LoginPage.visit(BASE_URL);
-    cy.wait(10000);
+    cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
     LoginPage.assertUrl("https://creatics.org/");
   });
 

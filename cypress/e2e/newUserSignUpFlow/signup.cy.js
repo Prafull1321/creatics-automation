@@ -3,11 +3,12 @@ import SignUpPage from "../../pageObjectModule/signUpPage";
 import EmailVerification from "../../pageObjectModule/emailVerification";
 import ProfileMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import myAccountPage from "../../pageObjectModule/myAccount/myAccountPage";
+import { onboardSetup2 } from "../../pageObjectModule/onboardingPages";
 
 describe("Sign-Up Page Test Cases", function () {
-  const FirstName = "Saurabh";
-  const LastName = "Gaikwad";
-  const Password = "Qwerty@123";
+  const FirstName = "Dhiren";
+  const LastName = "Parmar";
+  const Password = "Test@123";
   const Mobile_1_URL = "https://mobile.creatics.org/";
   const Testing_URL = "https://testing.creatics.org/";
   const Assert_URL = "https://testing.creatics.org/";
@@ -247,13 +248,14 @@ describe("Sign-Up Page Test Cases", function () {
 
   afterEach(() => {
     // Runs after each test
-    cy.wait(6000);
+    cy.wait(2000);
 
     cy.get("body").then(($body) => {
       // Check if the "SIGN IN" link is not present (meaning user is logged in)
       if ($body.find('a[href="/login"]').length === 0) {
         // "SIGN IN" link is not present, meaning user is logged in
         // Proceed with delete flow
+        onboardSetup2.clickPopupGotItButton();
         ProfileMenu.dropDownMenu();
         ProfileMenu.selectMyAccount();
         cy.wait(10000);
@@ -273,8 +275,8 @@ describe("Sign-Up Page Test Cases", function () {
         myAccountPage.removePopupConfirmTextbox("Confirm");
         myAccountPage.selectRemoveBtnPopup();
         cy.wait(4000);
-        myAccountPage.gotItBtnRemoved2Popup();
-        cy.wait(4000);
+        // myAccountPage.gotItBtnRemoved2Popup();
+        // cy.wait(4000);
       } else {
         // "SIGN IN" link is present, meaning user is logged out
         // Clear cookies

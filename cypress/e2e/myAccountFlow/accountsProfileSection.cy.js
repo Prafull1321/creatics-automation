@@ -19,7 +19,7 @@ describe("My Account test cases (Profile Section).", function () {
 
   beforeEach(() => {
     loginPage.visit(BASE_URL);
-    cy.wait(10000);
+    cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
     loginPage.assertUrl(BASE_URL);
     loginPage.signInOption();
     loginPage.emailText(username);
@@ -66,9 +66,9 @@ describe("My Account test cases (Profile Section).", function () {
 
   it("Verify My Profile (My Information) functionality.", () => {
     const UserInformation = {
-      "first-name": "Saurabh",
-      "last-name": "Gaikwad",
-      "communication-email": "saurabh@gmail.com",
+      "first-name": "Dhiren",
+      "last-name": "Parmar",
+      "communication-email": "1cg0deu51s@cmhvzylmfc.com",
     };
     myAccountPage.profileSection();
     myAccountPage.myInformationSection();
@@ -107,8 +107,8 @@ describe("My Account test cases (Profile Section).", function () {
 
   it("Verify error messages are shown on invalid inputs.", () => {
     const UserInformation = {
-      "first-name": "Saurabh",
-      "last-name": "Gaikwad",
+      "first-name": "Dhiren",
+      "last-name": "Parmar",
       "communication-email": "Ready@gmail.com",
       "invalid-email": "invalid.com",
     };
@@ -129,9 +129,9 @@ describe("My Account test cases (Profile Section).", function () {
 
   it("Verify edited information is reflected in My Information and Profile sections.", () => {
     const UserInformation = {
-      "first-name": "Saurabh",
-      "last-name": "Gaikwad",
-      "communication-email": "saurabh@gmail.com",
+      "first-name": "Dhiren",
+      "last-name": "Parmar",
+      "communication-email": "1cg0deu51s@cmhvzylmfc.com",
     };
     const FullName = `${UserInformation["first-name"]} ${UserInformation["last-name"]}`;
 
@@ -899,7 +899,7 @@ describe("My Account test cases (Profile Section).", function () {
   });
 
   it("Verify Successful Password Change with Valid Data.", () => {
-    const changedPassword = "Saurabh@02";
+    const changedPassword = "Test@124";
     myAccountPage.profileSection();
     myAccountPage.changePaswordSection();
     cy.wait(5000);
@@ -929,10 +929,9 @@ describe("My Account test cases (Profile Section).", function () {
 
   afterEach(() => {
     // Runs after each test
-    cy.wait(6000);
+    cy.wait(2000);
     cy.clearCookies();
     // cy.get(".dropdown").first().click();
     // cy.get(".profileCard").contains("LOGOUT").click();
-    cy.wait(6000);
   });
 });

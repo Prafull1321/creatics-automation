@@ -6,12 +6,12 @@ import SignUpPage from "../../pageObjectModule/signUpPage";
 import EmailVerification from "../../pageObjectModule/emailVerification";
 import ProfileMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import myAccountPage from "../../pageObjectModule/myAccount/myAccountPage";
+import { onboardSetup2 } from "../../pageObjectModule/onboardingPages";
 
 describe("Verify functionality of Reset password", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
   const Password = "Qwerty@123";
-  //   const mainPassword = "@01";
   const PasswordTest001 = "Testing@001";
   const PasswordTest002 = "Testing@002";
   const PasswordTest003 = "Testing@003";
@@ -31,7 +31,7 @@ describe("Verify functionality of Reset password", () => {
 
       // Sign up a new user
       LoginPage.visit(Testing_URL);
-      cy.wait(10000);
+      cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
       LoginPage.signInOption();
       LoginPage.signUpButton();
       SignUpPage.fillFirstName(FirstName);
@@ -44,8 +44,8 @@ describe("Verify functionality of Reset password", () => {
       cy.getLatestEmail(inbox.id).then((email) => {
         cy.extractVerifyLink(email).then((verifyLink) => {
           EmailVerification.visitEmailLink(verifyLink);
-
           cy.wait(12000);
+          onboardSetup2.clickPopupGotItButton();
         });
       });
       cy.wait(5000);
@@ -308,7 +308,7 @@ describe("Verify functionality of Reset password", () => {
     myAccountPage.removePopupConfirmTextbox("Confirm");
     myAccountPage.selectRemoveBtnPopup();
     cy.wait(4000);
-    myAccountPage.gotItBtnRemoved2Popup();
-    cy.wait(4000);
+    // myAccountPage.gotItBtnRemoved2Popup();
+    // cy.wait(4000);
   });
 });

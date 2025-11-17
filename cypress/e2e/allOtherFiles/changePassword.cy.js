@@ -1,7 +1,7 @@
 describe("template spec", function () {
-  const username = "saurabh.gaikwad@scalevista.com";
-  const mainPassword = "Saurabh@02";
-  const newPassword = "Saurabh@01";
+  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const mainPassword = "Test@123";
+  const newPassword = "Test@124";
 
   beforeEach(() => {
     cy.visit("https://creatics.org/", {
@@ -38,7 +38,7 @@ describe("template spec", function () {
   });
 
   it("Change Password", () => {
-    cy.get(".dropdown").first().click();
+    cy.get("#mat-expansion-panel-header-1").contains(" MY PROFILE ").click();
     cy.get(".profileCard").contains("MY ACCOUNT").click();
     cy.get("#mat-expansion-panel-header-1").click();
     cy.get("#mat-expansion-panel-header-11").click();

@@ -5,7 +5,8 @@ describe("template spec", function () {
     });
     cy.url().should("eq", "https://creatics.org/");
 
-    cy.get(".cus-spacing > .ng-star-inserted > div > a").click();
+    //cy.get(".cus-spacing > .ng-star-inserted > div > a").click();
+    cy.get("li[class='dropDownelemets ng-star-inserted'] a").click();
     cy.get("#email").type("saurabh.gaikwad@scalevista.com");
     cy.get("#password").type("Saurabh@02");
     cy.get(".btn").click();

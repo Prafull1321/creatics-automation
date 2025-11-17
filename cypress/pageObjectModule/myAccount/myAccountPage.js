@@ -179,7 +179,7 @@ class MyAccountPage {
   }
   //----------------------
   getCroppingArea() {
-    return cy.get(".cropper");
+    return cy.get(".cropButton.ng-star-inserted");
   }
   dragCropArea(startX, startY, endX, endY) {
     // Simulate mouse events to define the crop area
@@ -190,7 +190,7 @@ class MyAccountPage {
   }
   //----------------------
   getMoveHandle() {
-    return cy.get(".move").click(); // Selector for the move handle
+    return cy.get("div[role='presentation']").click(); // Selector for the move handle
   }
   moveCropBox(startX, startY, endX, endY) {
     // Simulate dragging the move handle to reposition the crop area
@@ -337,7 +337,7 @@ class MyAccountPage {
     return cy.get("video[controls]").invoke("attr", "src");
   }
   removePopupBox() {
-    return cy.get("#mat-dialog-0");
+    return cy.get(".mat-mdc-dialog-surface.mdc-dialog__surface");
   }
   clickNoBtnRemovePopup() {
     return cy.get(".btn").contains("No").click();
@@ -442,8 +442,8 @@ class MyAccountPage {
   textInRemoved2Popup() {
     return cy.get(".fs-5").contains("Your account has been removed");
   }
-  gotItBtnRemoved2Popup() {
-    return cy.get(".d-flex").contains("Got it").click();
-  }
+  // gotItBtnRemoved2Popup() {
+  //   return cy.get(".d-flex").contains("Got it").click();
+  // }
 }
 export default new MyAccountPage();

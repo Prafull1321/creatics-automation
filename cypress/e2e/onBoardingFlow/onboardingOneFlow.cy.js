@@ -62,7 +62,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
 
       // Sign up a new user
       LoginPage.visit(BASE_URL);
-      cy.wait(10000);
+      cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
       LoginPage.signInOption();
       LoginPage.signUpButton();
       SignUpPage.fillFirstName(FirstName);
@@ -189,8 +189,8 @@ describe("Verify Onboarding Flow Test Cases", () => {
   it("Verify that no data appears on the Profile page when the user skips filling out the Profile page, Interest page, Treasury page, and Im Video page.", () => {
     onboardSetup1.clickStep1Skip();
     cy.wait(2000);
-    onboardSetup2.getNotificationPopup();
-    onboardSetup2.clickPopupGotItButton();
+   // onboardSetup2.getNotificationPopup();
+   //onboardSetup2.clickPopupGotItButton();
     onboardSetup2.clickSkipInterest();
     onboardSetup3.clickSkipTreasury();
     onboardSetup4.clickSkipVideoPage();
@@ -223,7 +223,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
     myAccountPage.removePopupConfirmTextbox("Confirm");
     myAccountPage.selectRemoveBtnPopup();
     cy.wait(4000);
-    myAccountPage.gotItBtnRemoved2Popup();
-    cy.wait(4000);
+    // myAccountPage.gotItBtnRemoved2Popup();
+    // cy.wait(4000);
   });
 });

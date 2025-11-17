@@ -96,4 +96,21 @@ Cypress.Commands.add("getOTPFromInbox", (inboxId) => {
   });
 });
 
+// Cypress.Commands.overwrite('visit', (originalFn, url, options = {}) => {
+//   options = {
+//     ...options,
+//     timeout: 60000,
+//     // Prevent Cypress from waiting for window.load
+//     onBeforeLoad(win) {
+//       // Fake load event
+//       Object.defineProperty(win.performance, 'timing', {
+//         value: { loadEventEnd: 1 },
+//         configurable: true,
+//       });
+//     }
+//   };
+  
+//   return originalFn(url, options);
+// });
+
 //-----------------------------------------------------------------------
