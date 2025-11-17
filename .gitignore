@@ -1,47 +1,50 @@
-# node_modules/
-# cypress/videos/
-# cypress/screenshots/
-# dist/
-# .env
-# cypress/fixtures/videos/
-# cypress/fixtures/images/
-# ------------------------------
-# ============================================================
-# Node / Cypress Automation .gitignore
-# ============================================================
-
 # Node modules
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Cypress generated folders
-cypress/screenshots/
+# Environment files
+.env
+.env.*.local
+
+# Cypress output folders
 cypress/videos/
-cypress/downloads/
+cypress/screenshots/
 cypress/reports/
-cypress/.cache/
+cypress/downloads/
 
-# Fixtures - big or binary files
-cypress/fixtures/**/*.mp4
-cypress/fixtures/**/*.mov
-cypress/fixtures/**/*.avi
-cypress/fixtures/**/*.mkv
-cypress/fixtures/**/*.jpg
-cypress/fixtures/**/*.jpeg
-cypress/fixtures/**/*.png
-cypress/fixtures/**/*.gif
-cypress/fixtures/**/*.pdf
+# Cypress cache + artifacts
+.cypress-cache/
+cache/
+*.log
 
-# OS files
+# Dist, build, and coverage
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Ignore system files
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
+# Ignore large fixture assets (avoid >50 MB files)
+cypress/fixtures/**/*.mp4
+cypress/fixtures/**/*.mov
+cypress/fixtures/**/*.avi
+cypress/fixtures/**/*.flv
+cypress/fixtures/**/*.mkv
+cypress/fixtures/**/*50mb*
+cypress/fixtures/**/*.jpg
+cypress/fixtures/**/*.jpeg
+cypress/fixtures/**/*.png
 
-# Local environment configs
-.env
-.env.local
+# Ignore editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Build output
-dist/
-build/
+# Git files
+.gitignore
