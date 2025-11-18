@@ -95,7 +95,7 @@ beforeEach(() => {
       });
   });
 
-  it.skip("Verify the error state in the image change process for invalid formats and large-sized images", () => {
+  it("Verify the error state in the image change process for invalid formats and large-sized images", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
 
     profilePage.clickChangeBackgroundBtn();

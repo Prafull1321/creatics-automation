@@ -12,37 +12,6 @@ visit(url) {
   });
 }
 
-// visit(URL) {
-//   return cy.visit(URL, {
-//     failOnStatusCode: false,
-//     timeout: 120000,
-//     pageLoadTimeout: 120000,
-//     script: false
-//   });
-// }
-
-// visit(url) {
-//   return cy.window({ timeout: 1000 }).then(() => {
-//     // Pretend window.load already happened
-//     Cypress.on("window:before:load", (win) => {
-//       Object.defineProperty(win.performance, "timing", {
-//         configurable: true,
-//         value: {
-//           loadEventEnd: Date.now(),
-//           responseEnd: Date.now() - 10,
-//         },
-//       });
-//     });
-
-//     // NOW visit the page normally
-//     cy.visit(url, {
-//       failOnStatusCode: false,
-//       pageLoadTimeout: 60000,   // must be > 0
-//       timeout: 60000,
-//     });
-//   });
-// }
-
   assertUrl(loggedInURL) {
     return cy.url().should("eq", loggedInURL);
   }
