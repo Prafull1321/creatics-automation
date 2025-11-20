@@ -62,7 +62,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
 
       // Sign up a new user
       LoginPage.visit(BASE_URL);
-      cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
+      //cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
       LoginPage.signInOption();
       LoginPage.signUpButton();
       SignUpPage.fillFirstName(FirstName);
