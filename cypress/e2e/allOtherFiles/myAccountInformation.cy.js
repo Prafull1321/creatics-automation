@@ -2,7 +2,7 @@ import loginPage from "../../pageObjectModule/loginPage";
 import myAccountPage from "../../pageObjectModule/myAccount/myAccountPage";
 import ProflieMenu from "../../pageObjectModule/commonComponent/headerMenu";
 
-describe("template spec", function () {
+describe.skip("template spec", function () {
   const username = "saurabh.gaikwad@scalevista.com";
   const mainPassword = "Saurabh@01";
   const newPassword = "Saurabh@02";

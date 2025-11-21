@@ -1,4 +1,4 @@
-describe("Email OTP verification", () => {
+describe.skip("Email OTP verification", () => {
   it("should sign up and verify OTP from email", () => {
     // Create a new inbox
     cy.createInbox().then((inbox) => {

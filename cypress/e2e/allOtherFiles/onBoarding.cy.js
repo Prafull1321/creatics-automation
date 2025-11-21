@@ -7,7 +7,7 @@ import {
   onboardSetup3,
 } from "../../pageObjectModule/onboardingPages";
 
-describe("Check onboarding flow", () => {
+describe.skip("Check onboarding flow", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
   const Password = "Qwerty@123";

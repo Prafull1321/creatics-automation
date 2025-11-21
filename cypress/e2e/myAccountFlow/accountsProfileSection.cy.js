@@ -609,11 +609,12 @@ describe("My Account test cases (Profile Section).", function () {
     profilePage.userIcon().should("be.visible");
   });
 
-  it("Verify if an image size related error is shown for the upload profile flow	.", () => {
+  it("Verify if an image size related error is shown for the upload profile flow.", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
     cy.wait(4000);
+    //myAccountPage.clickRemoveProfileBtn();
     myAccountPage.clickUploadProfilePictureSection().should("be.visible");
     myAccountPage.selectProfileUploadFile(LargeSizeImage);
   });

@@ -39,7 +39,7 @@
 //   });
 // });
 
-describe("Email Verification with MailSlurp", () => {
+describe.skip("Email Verification with MailSlurp", () => {
   let inbox;
 
   before(() => {

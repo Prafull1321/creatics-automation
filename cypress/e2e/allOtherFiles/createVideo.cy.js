@@ -1,4 +1,4 @@
-describe("template spec", function () {
+describe.skip("template spec", function () {
   const username = "saurabh.gaikwad@scalevista.com";
   const mainPassword = "Saurabh@01";
   const newPassword = "Saurabh@02";

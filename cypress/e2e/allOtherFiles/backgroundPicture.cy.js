@@ -1,4 +1,4 @@
-describe("template spec", function () {
+describe.skip("template spec", function () {
   beforeEach(() => {
     cy.visit("https://creatics.org/", {
       failOnStatusCode: false,

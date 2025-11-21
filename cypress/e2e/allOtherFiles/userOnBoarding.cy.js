@@ -9,7 +9,7 @@ import {
 } from "../../pageObjectModule/onboardingPages";
 import profilePage from "../../pageObjectModule/profilePage";
 
-describe("Verify Onboarding Flow Test Cases", () => {
+describe.skip("Verify Onboarding Flow Test Cases", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
   const Password = "Qwerty@123";

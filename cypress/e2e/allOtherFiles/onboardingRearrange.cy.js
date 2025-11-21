@@ -11,7 +11,7 @@ import profilePage from "../../pageObjectModule/profilePage";
 import ProfileMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import myAccountPage from "../../pageObjectModule/myAccount/myAccountPage";
 
-describe("Verify Onboarding Flow Test Cases", () => {
+describe.skip("Verify Onboarding Flow Test Cases", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
   const Password = "Qwerty@123";

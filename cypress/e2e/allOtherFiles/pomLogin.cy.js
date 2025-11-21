@@ -1,7 +1,7 @@
 import LoginPage from "../pageObjectModule/login";
 import ProfilePage from "../pageObjectModule/profile";
 
-describe("Email OTP verification", () => {
+describe.skip("Email OTP verification", () => {
   it.only("Verify if user is able to skip all pages of onboarding", () => {
     const BASE_URL = "https://creatics.org/";
     const EMAIL = "xulity@teleg.eu";

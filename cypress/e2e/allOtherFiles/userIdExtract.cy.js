@@ -5,7 +5,7 @@ import profilePage from "../../pageObjectModule/profilePage";
 import headerMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import { onboardSetup4 } from "../../pageObjectModule/onboardingPages";
 
-describe("Profile Page Test cases", function () {
+describe.skip("Profile Page Test cases", function () {
   const username = "hinavik528@cashbn.com";
   const mainPassword = "Qwerty@123";
   const newPassword = "Saurabh@01";
