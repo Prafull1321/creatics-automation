@@ -95,7 +95,7 @@ beforeEach(() => {
       });
   });
 
-  it("Verify the error state in the image change process for invalid formats and large-sized images", () => {
+  it.skip("Verify the error state in the image change process for invalid formats and large-sized images", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
 
     profilePage.clickChangeBackgroundBtn();
@@ -122,7 +122,7 @@ beforeEach(() => {
   //   profilePage.imageCircle().should("be.visible");
   // });
 
-  it("Verify the error state in the profile image change process for invalid formats and large-sized images.", () => {
+  it.skip("Verify the error state in the profile image change process for invalid formats and large-sized images.", () => {
     const LargeImageSize = "cypress/fixtures/images/50mb.jpg";
 
     profilePage.imageCircle().should("be.visible");

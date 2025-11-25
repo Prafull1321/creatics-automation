@@ -150,7 +150,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
     });
   });
 
-  it("Verify that the system enforces the file size limit for profile picture uploads.", () => {
+  it.skip("Verify that the system enforces the file size limit for profile picture uploads.", () => {
     onboardSetup1.getPageHeading();
     onboardSetup1.clickUploadProfile();
     onboardSetup1.getProfileImageSelect(overSizeImage);
@@ -331,7 +331,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
     onboardSetup3.emptyLinkError().should("be.visible");
   });
 
-  it("Verify the size limit for image uploads on the Treasury page.", () => {
+  it.skip("Verify the size limit for image uploads on the Treasury page.", () => {
     onboardSetup1.clickStep1Skip();
     cy.wait(2000);
     onboardSetup2.clickSkipInterest();

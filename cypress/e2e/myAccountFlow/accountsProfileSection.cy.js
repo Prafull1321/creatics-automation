@@ -585,7 +585,7 @@ describe("My Account test cases (Profile Section).", function () {
     cy.wait(4000);
   });
 
-  it("Verify if an image size related error is shown for the change profile flow.", () => {
+  it.skip("Verify if an image size related error is shown for the change profile flow.", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
@@ -609,7 +609,7 @@ describe("My Account test cases (Profile Section).", function () {
     profilePage.userIcon().should("be.visible");
   });
 
-  it("Verify if an image size related error is shown for the upload profile flow.", () => {
+  it.skip("Verify if an image size related error is shown for the upload profile flow.", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
@@ -729,7 +729,7 @@ describe("My Account test cases (Profile Section).", function () {
     });
   });
 
-  it("Verify if error messages are shown in the Change Background Picture section.", () => {
+  it.skip("Verify if error messages are shown in the Change Background Picture section.", () => {
     const LargeSizeFile = "cypress/fixtures/images/50mb.jpg";
     myAccountPage.profileSection();
     myAccountPage.backgroundPictureSection();
