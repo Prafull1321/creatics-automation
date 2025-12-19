@@ -585,15 +585,15 @@ describe("My Account test cases (Profile Section).", function () {
     cy.wait(4000);
   });
 
-  it.skip("Verify if an image size related error is shown for the change profile flow.", () => {
-    const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
-    myAccountPage.profileSection();
-    myAccountPage.profilePictureSection();
-    cy.wait(4000);
-    myAccountPage.clickChangeProfileBtn();
-    myAccountPage.clickChangeProfilePictureSection();
-    myAccountPage.selectProfileUploadFile(LargeSizeImage);
-  });
+  // it.skip("Verify if an image size related error is shown for the change profile flow.", () => {
+  //   const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
+  //   myAccountPage.profileSection();
+  //   myAccountPage.profilePictureSection();
+  //   cy.wait(4000);
+  //   myAccountPage.clickChangeProfileBtn();
+  //   myAccountPage.clickChangeProfilePictureSection();
+  //   myAccountPage.selectProfileUploadFile(LargeSizeImage);
+  // });
 
   it("Verify if the user is able to remove the profile image and check error state.", () => {
     const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
@@ -609,15 +609,15 @@ describe("My Account test cases (Profile Section).", function () {
     profilePage.userIcon().should("be.visible");
   });
 
-  it.skip("Verify if an image size related error is shown for the upload profile flow.", () => {
-    const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
-    myAccountPage.profileSection();
-    myAccountPage.profilePictureSection();
-    cy.wait(4000);
-    //myAccountPage.clickRemoveProfileBtn();
-    myAccountPage.clickUploadProfilePictureSection().should("be.visible");
-    myAccountPage.selectProfileUploadFile(LargeSizeImage);
-  });
+  // it.skip("Verify if an image size related error is shown for the upload profile flow.", () => {
+  //   const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
+  //   myAccountPage.profileSection();
+  //   myAccountPage.profilePictureSection();
+  //   cy.wait(4000);
+  //   //myAccountPage.clickRemoveProfileBtn();
+  //   myAccountPage.clickUploadProfilePictureSection().should("be.visible");
+  //   myAccountPage.selectProfileUploadFile(LargeSizeImage);
+  // });
 
   it("Verify if the user is able to add a new profile image.", () => {
     const DogImage = "cypress/fixtures/images/dog.jpg";
@@ -729,16 +729,16 @@ describe("My Account test cases (Profile Section).", function () {
     });
   });
 
-  it.skip("Verify if error messages are shown in the Change Background Picture section.", () => {
-    const LargeSizeFile = "cypress/fixtures/images/50mb.jpg";
-    myAccountPage.profileSection();
-    myAccountPage.backgroundPictureSection();
-    cy.wait(5000);
-    myAccountPage.clickChangeBackgroundBtn();
-    cy.wait(4000);
-    myAccountPage.clickChangeBackgroundSection();
-    myAccountPage.selectBackgroundFile(LargeSizeFile);
-  });
+  // it.skip("Verify if error messages are shown in the Change Background Picture section.", () => {
+  //   const LargeSizeFile = "cypress/fixtures/images/50mb.jpg";
+  //   myAccountPage.profileSection();
+  //   myAccountPage.backgroundPictureSection();
+  //   cy.wait(5000);
+  //   myAccountPage.clickChangeBackgroundBtn();
+  //   cy.wait(4000);
+  //   myAccountPage.clickChangeBackgroundSection();
+  //   myAccountPage.selectBackgroundFile(LargeSizeFile);
+  // });
 
   it("Verify video selection functionality in the I'm Video section through upload or change.", () => {
     const football = "cypress/fixtures/videos/football.mp4";
@@ -910,6 +910,7 @@ describe("My Account test cases (Profile Section).", function () {
     cy.wait(2000);
     myAccountPage.clickconfirmPasswordBtn();
     cy.wait(10000);
+    //cy.clearCookies();
     cy.url().should("include", "login");
     loginPage.emailText(username);
     loginPage.passwordText(mainPassword);
