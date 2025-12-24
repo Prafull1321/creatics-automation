@@ -175,7 +175,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.12.44",
-    "cypress": "^13.17.0",
+    "cypress": "^15.8.1",
     "cypress-mochawesome-reporter": "^3.8.4",
     "istanbul-lib-coverage": "^3.2.2",
     "mochawesome": "^7.1.3",
