@@ -41,27 +41,60 @@ describe("CineJoy Testcases.", function() {
 
 
         it("Verify homepage baner and all tabs", () => {
-            cinejoyHomepage.validateBannerImageAndText();
-            cy.contains('Viewers Voice Fests').should("be.visible");
-            cy.contains('Thriller Film Fest').should("be.visible");
-            cy.contains('How To').should("be.visible");
-            cy.contains('Individual Tix').should("be.visible");
-            cy.contains('All-Access Passes').should("be.visible");
+          cinejoyHomepage.validateBannerImageAndText();
+          cy.contains('Viewers Voice Fests').should("be.visible");
+          cy.contains('Thriller Film Fest').should("be.visible");
+          cy.contains('How To').should("be.visible");
+          cy.contains('Individual Tix').should("be.visible");
+          cy.contains('All-Access Passes').should("be.visible");
         });
 
-        it.only("Verify Passport page of cinejoy", () => {
-            cinejoyHomepage.navigateToPassportPage();
-            cy.contains("Community Passports", {timeout: 10000}).should("be.visible");
-            cy.contains(' Trending ').should("be.visible");
-            cy.contains('Like Minded').should("be.visible");
-            cy.contains('New').should("be.visible");
-            cy.contains('Discover').should("be.visible");
+        it("Verify Passport page of cinejoy", () => {
+          cinejoyHomepage.navigateToPassportPage();
+          cy.contains("Community Passports", {timeout: 10000}).should("be.visible");
+          cy.contains(' Trending ').should("be.visible");
+          cy.contains('Like Minded').should("be.visible");
+          cy.contains('New').should("be.visible");
+          cy.contains('Discover').should("be.visible");
             
         });
 
-        it.only("Verify about page of cinejoy", () => {
-            
+        it("Verify about page of cinejoy", () => {
+          cinejoyHomepage.aboutPage();
+          cy.contains(" About CINEJOY on CREATICS ").should("be.visible");
+          cy.scrollTo('bottom');
+          cy.get(".event-image").should('exist').and('be.visible');
+          cy.get('.event-image').then(($video) => {
+          const video = $video[0]
+          video.muted = true
+          video.play()
+          cy.wait(1000);
+          expect(video.paused).to.eq(false)
+          video.pause()
+          expect(video.paused).to.eq(true)
+          })
         });
+
+        it("Verify Meetups page of cinejoy", () => {
+          cinejoyHomepage.meetupPage();
+          cy.contains("Cinejoy Artist & Audience Meetups").should("be.visible");
+          cinejoyHomepage.joinMeetupButton().should('be.visible');
+          cinejoyHomepage.hostMeetupButton().should('be.visible');
+        });
+
+        it.only("Verify Host Meetup flow for type showcase", () => {
+          const eventType = "Showcase";
+          const SelectedMovie = "ALL THERE IS";
+          cinejoyHomepage.meetupPage();
+          cinejoyHomepage.hostMeetupButton().click();
+          cy.contains("Host Artist & Audience Meetups").should("be.visible");
+          cinejoyHomepage.hostMeetupGetStartedButton();
+          cinejoyHomepage.selectEventType(eventType);
+          cinejoyHomepage.selectMovie(SelectedMovie);
+          cinejoyHomepage.nextButton();
+        });
+
+
 
 
 

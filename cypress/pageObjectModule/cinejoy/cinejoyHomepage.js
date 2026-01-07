@@ -22,7 +22,42 @@ class CinejoyHomepage{
 
     allAccessPassBtn(){
         return cy.get(".btn_effect").contains("All-Access Passes").click();
-    }   
+    }
+    
+    aboutPage(){
+        return cy.get("div[class='list-div-mobile'] span:nth-child(1) a:nth-child(1)").click();
+    }
+
+    meetupPage(){
+        //return cy.get("div[class='web-view'] div[class='nav-div'] span:nth-child(4) a:nth-child(1)").click();
+        return cy.get("a[href='/cinejoy/screening-parties']").contains("Meetups").click();
+    }
+
+    joinMeetupButton(){
+        return cy.get("span[class='btn_effect']").contains("Join an Artist & Audience Meetup");
+    }
+
+    hostMeetupButton(){
+        return cy.get("span[class='btn_effect']").contains("Host an Artist & Audience Meetup");
+    }
+
+    hostMeetupGetStartedButton(){
+        return cy.get("span[class='btn_effect']").contains("Get Started").click();
+    }
+
+    selectEventType(eventType){
+        cy.get("#mat-select-0").click();
+        return cy.get("mat-option[id='mat-option-1']").contains(eventType).click();
+    }
+    selectMovie(selectedMovie){
+        cy.get("#mat-select-1").click();
+        return cy.get("mat-option[role='option']").contains(selectedMovie).click();
+    }
+
+    nextButton(){
+        return cy.get("button[type='submit']").contains("Next").click();
+    }
+    
 
 }
 
