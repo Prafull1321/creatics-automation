@@ -82,7 +82,7 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.hostMeetupButton().should('be.visible');
         });
 
-        it.only("Verify Host Meetup flow for type showcase", () => {
+        it("Verify Host Meetup flow for type showcase", () => {
           const eventType = "Showcase";
           const SelectedMovie = "ALL THERE IS";
           cinejoyHomepage.meetupPage();
@@ -92,7 +92,52 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.selectEventType(eventType);
           cinejoyHomepage.selectMovie(SelectedMovie);
           cinejoyHomepage.nextButton();
+          cinejoyHomepage.enterCurrentDateAndTime();
+          cinejoyHomepage.nextButton();
+          cinejoyHomepage.enterPartyInfo();
+          cy.wait(4000);
+          cinejoyHomepage.verifyThankYouPage();
+          cinejoyHomepage.verifyJoinMeetupPage();
         });
+
+        it("Verify Host Meetup flow for type showcase", () => {
+          const eventType = "Spotlight";
+          const SelectedMovie = "Cotton Candy Bubble Gum";
+          cinejoyHomepage.meetupPage();
+          cinejoyHomepage.hostMeetupButton().click();
+          cy.contains("Host Artist & Audience Meetups").should("be.visible");
+          cinejoyHomepage.hostMeetupGetStartedButton();
+          cinejoyHomepage.selectEventType(eventType);
+          cinejoyHomepage.selectMovie(SelectedMovie);
+          cinejoyHomepage.nextButton();
+          cinejoyHomepage.enterCurrentDateAndTime();
+          cinejoyHomepage.nextButton();
+          cinejoyHomepage.enterPartyInfo();
+          cy.wait(4000);
+          cinejoyHomepage.verifyThankYouPage();
+          cinejoyHomepage.verifyJoinMeetupPage();
+        });
+
+        it("Verify Join Meetup flow", () => {
+          cinejoyHomepage.meetupPage();
+          cinejoyHomepage.joinMeetupButton().click();
+          cinejoyHomepage.verifyJoinMeetupPage();
+          cinejoyHomepage.clickJoinButton();
+        });
+
+        it("Verify passport page edit bio feature.", () => {
+          cinejoyHomepage.navigateToCommunityPassportPage();
+          cinejoyHomepage.navigateToPassportTab();
+          cinejoyHomepage.verifyMyPassportProfilePage();
+        });
+
+        // it.only("Verify passport page My passport sections.", () => {
+        //   cinejoyHomepage.navigateToCommunityPassportPage();
+        //   cinejoyHomepage.navigateToPassportTab();
+          
+        // });
+        
+        
 
 
 
