@@ -138,6 +138,12 @@ class CinejoyHomepage{
         cy.get('button[class="web-btn1"]').contains(" JOIN ").click();
     }
 
+    verifyPassportBadgesPage(){
+        cy.contains("Spotlight Events").should("be.visible");
+        cy.contains("Showcase Films").should("be.visible");
+        cy.contains("Artist & Audience Meetup").should("be.visible");
+    }
+
 
 }
 
