@@ -13,16 +13,7 @@ describe("Sign-Up Page Test Cases", function () {
   const Testing_URL = "https://testing.creatics.org/";
   const Assert_URL = "https://testing.creatics.org/";
   const BASE_URL = Testing_URL;
-  //   const logInURL = "https://mobile.creatics.org/userProfiles/home";
-
   let inbox;
-
-  // before(() => {
-  //   // Initialize MailSlurp and create a new inbox
-  //   cy.initializeMailSlurp().then((generatedInbox) => {
-  //     inbox = generatedInbox;
-  //   });
-  // });
 
   beforeEach(() => {
     cy.initializeMailSlurp().then((generatedInbox) => {

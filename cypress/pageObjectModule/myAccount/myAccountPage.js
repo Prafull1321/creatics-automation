@@ -331,7 +331,7 @@ class MyAccountPage {
     return cy.contains("Remove I Am Video").click();
   }
   getVideo() {
-    return cy.get("video[controls]");
+    return cy.get("div[class='ng-star-inserted'] video");
   }
   getvideoSrc() {
     return cy.get("video[controls]").invoke("attr", "src");

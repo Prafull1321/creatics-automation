@@ -144,6 +144,15 @@ class CinejoyHomepage{
         cy.contains("Artist & Audience Meetup").should("be.visible");
     }
 
+    buyAllAccessPass(){
+        cy.get("div[class='mobile-container'] div[class='bg-black'] button[class='btn all-access-btn btn-lg fw-bold ng-star-inserted']").click();
+        cy.contains("Unlock Viewers Voice Festival Movies").should("be.visible");
+        cy.get('span[class="mdc-button__label"]').contains(" Buy Now ").click();
+        cy.wait(10000);
+        cy.get("span[class='mdc-button__label']").contains("OK").should('be.visible').click();
+        //cy.get("input[placeholder='Add promotion code']").click();
+    }
+
 
 }
 

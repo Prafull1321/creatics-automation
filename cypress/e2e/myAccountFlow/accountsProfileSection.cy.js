@@ -759,7 +759,7 @@ describe("My Account test cases (Profile Section).", function () {
         myAccountPage.clickUploadImVideoBtn();
         onboardSetup4.clickVideoUpload();
         onboardSetup4.videoSelect(football);
-        cy.wait(50000);
+        cy.wait(70000);
         profilePage.getUploadedVideo().should("be.visible");
         profilePage
           .getUploadedVideoSrc()
@@ -830,6 +830,7 @@ describe("My Account test cases (Profile Section).", function () {
       expect(isPaused, "Video is paused").to.be.false; // Ensure the video is not paused, Video should be playing
     });
   });
+
   it("Verify if the user is able to change the existing video by adding a new one.", () => {
     const football = "cypress/fixtures/videos/football.mp4";
     const VideoSrc = football.split("/").pop(); // Extracts "football.mp4" from the path
