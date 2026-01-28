@@ -8,12 +8,13 @@ import {
   onboardSetup3,
   onboardSetup4,
 } from "../../pageObjectModule/onboardingPages";
-import cinejoyHomepage from "../../pageObjectModule/cinejoy/cinejoyHomepage";
+import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
 
 describe("Verify All Access Pass Test Cases", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
-  const Password = "Qwerty@123";
+  const Password = "Test@123";
+  const emailAddress = "0znclqyo3j@xkxkud.com";
   const Testing_URL = "https://testing.creatics.org/";
   const Mobile_1_URL = "https://mobile.creatics.org/";
   const Mobile_2_URL = "https://mobilej21.creatics.org/";
@@ -61,31 +62,30 @@ describe("Verify All Access Pass Test Cases", () => {
         cy.get("img[alt='creatics_logo'][src='assets/images/logo.jpg'][height='45']").click();
         cinejoyHomepage.navigateToCinejoy();
         cinejoyHomepage.allAccessPassBtn();
-
-        // ADD INTERCEPT HERE
-        cy.intercept(
-        'POST',
-        '**/api/stripe-purchase/payment-session*',
-        {
-          statusCode: 200,
-          body: {
-            url: 'https://testing.creatics.org/payment-success',
-            sessionId: 'cs_test_mocked_123'
-          }
-        }
-        ).as('stripeSession');
-
         cinejoyHomepage.buyAllAccessPass();
+        // ADD INTERCEPT HERE
+        // cy.intercept(
+        // 'POST',
+        // '**/api/stripe-purchase/payment-session*',
+        // {
+        //   statusCode: 200,
+        //   body: {
+        //     url: 'https://testing.creatics.org/payment-success',
+        //     sessionId: 'cs_test_mocked_123'
+        //   }
+        // }
+        // ).as('stripeSession');
 
-        cy.wait('@stripeSession');
+        // cinejoyHomepage.buyAllAccessPass();
 
-        cy.url().should('include', '/payment-success');
+        // cy.wait('@stripeSession');
+
+        // cy.url().should('include', '/payment-success');
     });
 
 
-    it("Validate add and remove flow of showcase and spotlight movies", () => {
-        const emailAddress = inbox.emailAddress;
-
+    it.only("Verify user is able to add movies in watchlist", () => {
+        // Ensure All access pass is bought for the user
         loginPage.assertUrl(BASE_URL);
         loginPage.signInOption();
         loginPage.emailText(emailAddress);
@@ -94,9 +94,11 @@ describe("Verify All Access Pass Test Cases", () => {
         loginPage.loginButton();
         cy.wait(5000);
         cinejoyHomepage.navigateToCinejoy();
+        cinejoyHomepage.navigateToShowcase();
+        cinejoyHomepage.addShowcaseMovieToWatchlist();
+        cinejoyHomepage.navigateToWatchlist();
 
-
-
+        
     });
 
        

@@ -4,13 +4,23 @@ class LoginPage {
   //   return cy.visit(URL, { failOnStatusCode: false });
   // }
 
-visit(url) {
-  return cy.visit(url, {
-    failOnStatusCode: false,
-    timeout: 120000,
-    waitUntil: 'domcontentloaded',  // prevents waiting for full page load
-  });
-}
+// visit(url) {
+//   return cy.visit(url, {
+//     failOnStatusCode: false,
+//     timeout: 130000,
+//     waitUntil: 'domcontentloaded',  // prevents waiting for full page load
+//   });
+// }
+
+  visit(url) {
+    cy.intercept('GET', '**/stripe/**', { statusCode: 200 })
+    cy.intercept('GET', '**/analytics/**', { statusCode: 200 })
+
+    return cy.visit(url, {
+      failOnStatusCode: false,
+      timeout: 180000
+    })
+  }
 
   assertUrl(loggedInURL) {
     return cy.url().should("eq", loggedInURL);

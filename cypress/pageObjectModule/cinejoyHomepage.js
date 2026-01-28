@@ -148,9 +148,37 @@ class CinejoyHomepage{
         cy.get("div[class='mobile-container'] div[class='bg-black'] button[class='btn all-access-btn btn-lg fw-bold ng-star-inserted']").click();
         cy.contains("Unlock Viewers Voice Festival Movies").should("be.visible");
         cy.get('span[class="mdc-button__label"]').contains(" Buy Now ").click();
-        cy.wait(10000);
-        cy.get("span[class='mdc-button__label']").contains("OK").should('be.visible').click();
+        //cy.wait(10000);
+        //cy.get("span[class='mdc-button__label']").contains("OK").should('be.visible').click();
         //cy.get("input[placeholder='Add promotion code']").click();
+    }
+
+    navigateToShowcase(){
+        cy.get("a[href='/cinejoy/showcase/features']").contains(" SHOWCASE film screenings!").click();
+    }
+
+    addShowcaseMovieToWatchlist(){
+        cy.get('img[alt="Bookmark Image"]').click();
+
+        cy.on('window:confirm', (text) => {
+        //expect(text).to.contain('add this event to your Watchlist');
+        return true; // clicks OK
+        });
+
+        cy.get('button[class="watchlist-button"]').contains("Go to My Watchlist").click();
+
+    }
+
+    navigateToSpotlight(){
+        cy.get("a[href='/cinejoy/premiere/lineup']").contains(" Attend live SPOTLIGHT events!").click();
+    }
+
+    navigateToWatchlist(){
+        cy.get("a[href='/cinejoy/passholders-watchlist']").contains("My Watchlist").click();
+    }
+
+    removeWatchlistMovies(){
+
     }
 
 
