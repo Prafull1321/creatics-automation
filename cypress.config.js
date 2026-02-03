@@ -17,10 +17,11 @@ module.exports = defineConfig({
     inlineAssets: true, // Embed assets inline in the report
   },
 
-  // e2e: {
-  //   baseUrl: 'https://testing.creatics.org',
-  //   chromeWebSecurity: false,
-  // },
+  e2e: {
+    baseUrl: 'https://testing.creatics.org',
+    chromeWebSecurity: false,
+    experimentalModifyObstructiveThirdPartyCode: true
+  },
 
   projectId: "3uirpk",   // <-- your actual projectId
   e2e: {

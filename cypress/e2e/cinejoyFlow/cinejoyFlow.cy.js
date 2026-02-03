@@ -1,5 +1,5 @@
 import { timeout } from "rxjs";
-import cinejoyHomepage from "../../pageObjectModule/cinejoy/cinejoyHomepage";
+import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
 import loginPage from "../../pageObjectModule/loginPage";
 
 describe("CineJoy Testcases.", function() {

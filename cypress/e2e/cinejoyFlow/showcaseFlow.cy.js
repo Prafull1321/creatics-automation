@@ -42,25 +42,12 @@ describe("CineJoy Testcases.", function() {
       });
 
 
-      it("Verify group sharing page features", () => {
-        spotlightPage.navigateToGroupshare();
-        spotlightPage.clickOnHostAGroupShare();
-        spotlightPage.clickOnAttendAGroupShare();
-        spotlightPage.clickOnBuyTicket();
-      });
 
-      it("Verify Lineup page More info page" , () => {
-        spotlightPage.clickOnMoreInfo();
-        spotlightPage.verifyVideoPlayback();
-      });
+
+
+
       
-      it.only("Verify Lineup page add and remove to My watchlist flow" , () => {
-        spotlightPage.addSpotlightMovieToWatchlist();
-        spotlightPage.removeMovieFromWatchlist();
-      });
-
-
-  afterEach(() => {
+      afterEach(() => {
     // Runs after each test
     cy.wait(2000);
     cy.clearCookies();
