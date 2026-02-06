@@ -82,48 +82,7 @@ describe("Verify All Access Pass Test Cases", () => {
 
         // cy.url().should('include', '/payment-success');
     });
-
-
-    it.only("Verify user is able to add movies in watchlist", () => {
-        // Ensure All access pass is bought for the user
-        loginPage.assertUrl(BASE_URL);
-        loginPage.signInOption();
-        loginPage.emailText(emailAddress);
-        loginPage.passwordText(Password);
-        cy.wait(2000);
-        loginPage.loginButton();
-        cy.wait(5000);
-        cinejoyHomepage.navigateToCinejoy();
-        cinejoyHomepage.navigateToShowcase();
-        cinejoyHomepage.addShowcaseMovieToWatchlist();
-        cinejoyHomepage.navigateToWatchlist();
-
-        
-    });
-
        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    afterEach(() => {
       // Runs after each test
     cy.wait(2000);

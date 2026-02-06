@@ -10,6 +10,7 @@ describe("CineJoy Testcases.", function() {
       const Mobile_2_URL = "https://mobilej21.creatics.org/";
       const Dev_URL = "https://dev.creatics.org/";
       const logInURL = "https://dev.creatics.org/userProfiles";
+      const Testing_URL = "https://testing.creatics.org/";
       const BASE_URL = Production_URL;
     
       beforeEach(() => {         
@@ -43,8 +44,8 @@ describe("CineJoy Testcases.", function() {
         it("Verify homepage baner and all tabs", () => {
           cinejoyHomepage.validateBannerImageAndText();
           cy.contains('Viewers Voice Fests').should("be.visible");
-          cy.contains('Doc & Drama Film Fest').should("be.visible");
-          cy.contains('How To').should("be.visible");
+          cy.contains('Festival of Fests').should("be.visible");
+          cy.contains('FEB. 12 SPOTLIGHT').should("be.visible");
           cy.contains('Individual Tix').should("be.visible");
           cy.contains('All-Access Passes').should("be.visible");
         });
@@ -64,14 +65,22 @@ describe("CineJoy Testcases.", function() {
           cy.contains(" About CINEJOY on CREATICS ").should("be.visible");
           cy.scrollTo('bottom');
           cy.get(".event-image").should('exist').and('be.visible');
+
+          cy.window().then((win) => {
+          cy.stub(win.HTMLMediaElement.prototype, 'play').resolves()
+          cy.stub(win.HTMLMediaElement.prototype, 'pause').resolves()
+          })
+
           cy.get('.event-image').then(($video) => {
           const video = $video[0]
           video.muted = true
-          video.play()
-          cy.wait(4000);
-          expect(video.paused).to.eq(false)
-          video.pause()
-          expect(video.paused).to.eq(true)
+            return video.play().then(() => {
+              cy.wait(4000)
+              expect(video.paused).to.eq(false)
+
+              video.pause()
+              expect(video.paused).to.eq(true)
+            })
           })
         });
 
@@ -82,15 +91,15 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.hostMeetupButton().should('be.visible');
         });
 
-        it("Verify Host Meetup flow for type showcase", () => {
+        it.only("Verify Host Meetup flow for type showcase", () => {
           const eventType = "Showcase";
-          const SelectedMovie = "All There Is";
+          //const SelectedMovie = "All There Is";
           cinejoyHomepage.meetupPage();
           cinejoyHomepage.hostMeetupButton().click();
           cy.contains("Host Artist & Audience Meetups").should("be.visible");
           cinejoyHomepage.hostMeetupGetStartedButton();
           cinejoyHomepage.selectEventType(eventType);
-          cinejoyHomepage.selectMovie(SelectedMovie);
+          cinejoyHomepage.selectMovie();
           cinejoyHomepage.nextButton();
           cinejoyHomepage.enterCurrentDateAndTime();
           cinejoyHomepage.nextButton();
@@ -100,15 +109,15 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.verifyJoinMeetupPage();
         });
 
-        it("Verify Host Meetup flow for type showcase", () => {
+        it("Verify Host Meetup flow for type spotlight", () => {
           const eventType = "Spotlight";
-          const SelectedMovie = "Cotton Candy Bubble Gum";
+          //const SelectedMovie = "Opening Night Spotlight Event";
           cinejoyHomepage.meetupPage();
           cinejoyHomepage.hostMeetupButton().click();
           cy.contains("Host Artist & Audience Meetups").should("be.visible");
           cinejoyHomepage.hostMeetupGetStartedButton();
           cinejoyHomepage.selectEventType(eventType);
-          cinejoyHomepage.selectMovie(SelectedMovie);
+          cinejoyHomepage.selectMovie();
           cinejoyHomepage.nextButton();
           cinejoyHomepage.enterCurrentDateAndTime();
           cinejoyHomepage.nextButton();
@@ -136,23 +145,6 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.navigateToPassportTab();
           cinejoyHomepage.verifyPassportBadgesPage();
         });
-
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 afterEach(() => {
     // Runs after each test

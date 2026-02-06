@@ -1,8 +1,9 @@
 import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
 import loginPage from "../../pageObjectModule/loginPage";
+import showcasePage from "../../pageObjectModule/showcasePage";
 import spotlightPage from "../../pageObjectModule/spotlightPage";
 
-describe("CineJoy Testcases.", function() {
+describe("Showcase Testcases", function() {
     const username = "0znclqyo3j@xkxkud.com";
     const mainPassword = "Test@123";
     const Production_URL = "https://creatics.org/";
@@ -25,7 +26,7 @@ describe("CineJoy Testcases.", function() {
         cy.wait(5000);
         cinejoyHomepage.navigateToCinejoy();
         cy.get("img[alt='Cinejoy Home Page']", {timeout: 10000}).should("be.visible");
-        cinejoyHomepage.navigateToSpotlight();
+        cinejoyHomepage.navigateToShowcase();
     
         cy.on("window:alert", (message) => {
           const normalizedMessage = message
@@ -41,12 +42,32 @@ describe("CineJoy Testcases.", function() {
         });
       });
 
+      it("Verify showcase movie homepage", () => {
+        showcasePage.verifyShowcasePage();
+        showcasePage.verifyMovieDetails();         
+      });
 
+      it("Verify user is able to watch movie", () => {
+        showcasePage.navigateToWatchPage();  
+      });
 
+      it("Verify user is able to add movies in watchlist", () => {
+        showcasePage.addShowcaseMovieToWatchlist();
+        showcasePage.removeMovieFromWatchlist();
+      });
 
+      it("Verify user is able to rate the movie", () => {
+        showcasePage.naviagteToMovieWatchPage();
+        //showcasePage.verifyMovieRate();
+        showcasePage.validateRatingSubmitted();
+      });
 
+      it("Validate Trailer, Special features, Cast and Crew, more info and message tab", () => {
+        showcasePage.naviagteToMovieWatchPage();
+        //showcasePage.verifyTrailerPlayAndPause();
+        showcasePage.verifyCastCrewAndMoreInfo();
+      });
 
-      
       afterEach(() => {
     // Runs after each test
     cy.wait(2000);

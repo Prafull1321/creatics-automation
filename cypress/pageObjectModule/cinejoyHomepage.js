@@ -9,7 +9,7 @@ class CinejoyHomepage{
     }
 
     navigateToCommunityPassportPage(){
-        return cy.get("div[class='nav-div'] span:nth-child(3) a:nth-child(1)").click({force: true});
+        return cy.get("a[href='/cinejoy/passport/community']").contains("PASSPORTS").click({force: true});
     }    
     
     verifyMyPassportProfilePage(){
@@ -20,7 +20,7 @@ class CinejoyHomepage{
         cy.get('div[class="heading gold"]').contains("My Passport Profile").should("be.visible");
 
         //edit name and bio
-        cy.get("img[alt='alt']").click();
+        cy.get("img[alt='alt']").click({force: true});
         cy.get("input[placeholder='Add name'][name='firstName']").clear().type(firstName);
         cy.get("input[placeholder='Add name'][name='lastName']").clear().type(lastName);
         cy.get("textarea[placeholder='Add Bio']").clear().type(bio);
@@ -71,12 +71,13 @@ class CinejoyHomepage{
     }
 
     selectEventType(eventType){
-        cy.get("#mat-select-0").click();
-        return cy.get("mat-option[role='option']").contains(eventType).click();
+        cy.get("#mat-select-0").click({force: true});
+        return cy.get("mat-option[role='option']").contains(eventType).click({force: true});
     }
-    selectMovie(selectedMovie){
+    selectMovie(){
         cy.get("#mat-select-1").click();
-        return cy.get("mat-option[role='option']").contains(selectedMovie).click();
+        return cy.get("mat-option[role='option']").first().click({force: true});
+        //return cy.get("mat-option[role='option']").contains(selectedMovie).click();
     }
 
     nextButton(){
@@ -118,12 +119,13 @@ class CinejoyHomepage{
         cy.get("textarea[id='mat-input-2']").type("This is just Test 101");
 
         //Click Submit
-        return cy.get('button[class="btn action-button"]').contains("Submit").click();
+        return cy.get('button[class="btn action-button"]').contains("Submit").click({ force: true });
     }
 
     verifyThankYouPage(){
         
         // Validate page heading
+        cy.wait(2000);
         cy.get('h2[class="pageheader"]').contains("Thank you for Hosting!").should("be.visible");
 
         // Click on Next Button
@@ -146,7 +148,7 @@ class CinejoyHomepage{
 
     buyAllAccessPass(){
         cy.get("div[class='mobile-container'] div[class='bg-black'] button[class='btn all-access-btn btn-lg fw-bold ng-star-inserted']").click();
-        cy.contains("Unlock Viewers Voice Festival Movies").should("be.visible");
+        cy.contains("Unlock All Spotlight Events and Showcase Movies").should("be.visible");
         cy.get('span[class="mdc-button__label"]').contains(" Buy Now ").click();
         //cy.wait(10000);
         //cy.get("span[class='mdc-button__label']").contains("OK").should('be.visible').click();

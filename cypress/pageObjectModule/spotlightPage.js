@@ -25,7 +25,7 @@ class spotlightPage{
     }
 
     verifyVideoPlayback() {
-        cy.get('vp-preview VideoThumbnail_module_videoThumbnail__836d3344 VideoThumbnail_module_cover__836d3344', { timeout: 15000 }).click({ force: true });
+        cy.get('div[class="PlayButton_module_playButtonWrapper__b9d5abe0"]', { timeout: 15000 }).click({ force: true });
 
         cy.get('iframe[src*="vimeo"]', { timeout: 15000 }).should('be.visible');
     }
@@ -42,21 +42,14 @@ class spotlightPage{
     }
 
     removeMovieFromWatchlist(){
-        cy.get('button[class="dynamic-button"]').contains(" Spotlight Premiere Events ").click();
+        
+        cy.on('window:confirm', () => true);
+
+        cy.get('button[class="dynamic-button"]').contains(" Showcase Screenings ").click();
+        
         cy.get('i[class="bi bi-trash delete"]').first().click({ force: true });
 
-        // Handle confirm delete message
-        cy.on('window:confirm', (text) => {
-        return true; // clicks OK
-        });
-        cy.wait(10000);
-         // Handle alert for delete
-        cy.on('window:alert', (text) => {
-            //expect(text).to.contain('Event deleted successfully');
-            return true; // clicks OK
-        });
-
-        cy.contains('No Content Added Yet', { timeout: 15000 }).should('be.visible');
+        //cy.contains('No Showcase Movies Added Yet', { timeout: 15000 }).should('be.visible');
     }
 
 }

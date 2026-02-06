@@ -40,7 +40,7 @@ class LoginPage {
     return cy.get(".card-title").contains(text);
   }
   signInOption() {
-    return cy.get(".cus-spacing").contains("SIGN IN").click();
+    return cy.get("a[href='/login']").contains("SIGN IN").click();
   }
   emailText(UserID) {
     return cy.get("#email").clear().type(UserID, { log: false });
