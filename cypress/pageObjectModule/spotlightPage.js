@@ -45,7 +45,7 @@ class spotlightPage{
         
         cy.on('window:confirm', () => true);
 
-        cy.get('button[class="dynamic-button"]').contains(" Showcase Screenings ").click();
+        cy.get('button[class="dynamic-button"]').contains(" Spotlight Premiere Events ").click();
         
         cy.get('i[class="bi bi-trash delete"]').first().click({ force: true });
 

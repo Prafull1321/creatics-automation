@@ -63,24 +63,30 @@ describe("Verify All Access Pass Test Cases", () => {
         cinejoyHomepage.navigateToCinejoy();
         cinejoyHomepage.allAccessPassBtn();
         cinejoyHomepage.buyAllAccessPass();
-        // ADD INTERCEPT HERE
-        // cy.intercept(
-        // 'POST',
-        // '**/api/stripe-purchase/payment-session*',
-        // {
-        //   statusCode: 200,
-        //   body: {
-        //     url: 'https://testing.creatics.org/payment-success',
-        //     sessionId: 'cs_test_mocked_123'
-        //   }
-        // }
-        // ).as('stripeSession');
 
-        // cinejoyHomepage.buyAllAccessPass();
+        // 1️⃣ Intercept Stripe session creation API
+        cy.intercept(
+          'POST',
+          '**/api/stripe-purchase/payment-session*',
+          {
+            statusCode: 200,
+            body: {
+              success: true,
+              sessionId: 'cs_test_123456789'
+            }
+          }
+        ).as('createStripeSession');
 
-        // cy.wait('@stripeSession');
+        // 2️⃣ Click Buy Pass / Buy Now
+        cy.contains('Buy Now').should('be.visible').click();
 
-        // cy.url().should('include', '/payment-success');
+        // // 4️⃣ Wait for Stripe session API call
+        // cy.wait('@createStripeSession');
+
+        // // 5️⃣ Verify success behavior (adjust based on your app)
+        // cy.url({ timeout: 10000 }).should('include', 'success');
+        // //cy.contains(/payment successful|thank you|order confirmed/i).should('be.visible');
+        
     });
        
    afterEach(() => {

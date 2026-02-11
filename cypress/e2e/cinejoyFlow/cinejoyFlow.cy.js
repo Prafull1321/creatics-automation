@@ -91,7 +91,7 @@ describe("CineJoy Testcases.", function() {
           cinejoyHomepage.hostMeetupButton().should('be.visible');
         });
 
-        it.only("Verify Host Meetup flow for type showcase", () => {
+        it("Verify Host Meetup flow for type showcase", () => {
           const eventType = "Showcase";
           //const SelectedMovie = "All There Is";
           cinejoyHomepage.meetupPage();

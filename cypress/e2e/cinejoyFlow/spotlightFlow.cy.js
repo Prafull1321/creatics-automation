@@ -49,7 +49,7 @@ describe("Spotlight Testcases.", function() {
         spotlightPage.clickOnBuyTicket();
       });
 
-      it.only("Verify Lineup page More info page" , () => {
+      it("Verify Lineup page More info page" , () => {
         spotlightPage.clickOnMoreInfo();
         //spotlightPage.verifyVideoPlayback();
       });
