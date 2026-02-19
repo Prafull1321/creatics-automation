@@ -17,6 +17,13 @@ module.exports = defineConfig({
     inlineAssets: true, // Embed assets inline in the report
   },
 
+   e2e: {
+    setupNodeEvents(on, config) {
+      grep(config);
+      return config;
+    }
+  },
+
   e2e: {
     baseUrl: 'https://testing.creatics.org',
     chromeWebSecurity: false,

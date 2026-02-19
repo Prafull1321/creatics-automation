@@ -74,7 +74,13 @@ class CinejoyHomepage{
         cy.get("#mat-select-0").click({force: true});
         return cy.get("mat-option[role='option']").contains(eventType).click({force: true});
     }
-    selectMovie(){
+    selectShowcaseMovie(selectedMovie){
+        cy.get("#mat-select-1").click();
+        //return cy.get("mat-option[role='option']").first().click({force: true});
+        return cy.get("mat-option[role='option']").contains(selectedMovie).click();
+    }
+
+    selectSpotlightMovie(){
         cy.get("#mat-select-1").click();
         return cy.get("mat-option[role='option']").first().click({force: true});
         //return cy.get("mat-option[role='option']").contains(selectedMovie).click();

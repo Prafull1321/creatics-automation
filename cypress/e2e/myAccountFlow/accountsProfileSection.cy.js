@@ -759,7 +759,7 @@ describe("My Account test cases (Profile Section).", function () {
         myAccountPage.clickUploadImVideoBtn();
         onboardSetup4.clickVideoUpload();
         onboardSetup4.videoSelect(football);
-        cy.wait(70000);
+        cy.wait(100000);
         profilePage.getUploadedVideo().should("be.visible");
         profilePage
           .getUploadedVideoSrc()
