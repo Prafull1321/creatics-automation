@@ -1,7 +1,7 @@
 class CinejoyHomepage{
 
     navigateToCinejoy(){
-        return cy.get("body > app-root:nth-child(1) > div:nth-child(1) > app-router-outlet:nth-child(2) > div:nth-child(2) > div:nth-child(1) > app-logged-in-homepage:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > a:nth-child(1) > img:nth-child(1)").click();
+        return cy.get('a[href="/cinejoy"]').click();
     }
     
     validateBannerImageAndText(){
@@ -162,7 +162,7 @@ class CinejoyHomepage{
     }
 
     navigateToShowcase(){
-        cy.get("a[href='/cinejoy/showcase/features']").contains(" SHOWCASE film screenings!").click();
+        cy.get("a[href='/cinejoy/showcase']").contains(" SHOWCASE film screenings!").click();
     }
 
     addShowcaseMovieToWatchlist(){

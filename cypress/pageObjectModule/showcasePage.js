@@ -1,7 +1,12 @@
 class showcasePage {
 
+    navigateToFeaturesPage(){
+        cy.contains("Features").should("be.visible").click();
+    }
+
     verifyShowcasePage() {
         cy.contains("Features").should("be.visible");
+
 
         cy.get("button[class='movienameList']").last().click();
 
@@ -51,14 +56,14 @@ class showcasePage {
     }
 
     navigateToWatchPage(){
-        cy.get("div[id='movies1037']").click();
+        //cy.get("div[id='movies1037']").click();
         cy.get('[class="movie_button ng-star-inserted"]').contains("Watch").click();
         cy.wait(6000);
         cy.get('iframe[id="iframeid1"]').click();
         cy.wait(5000);
     }
 
-    naviagteToMovieWatchPage(){
+    naviagteToMoviePage(){
         cy.get('button[class="movie_button"]').contains("Movie Page").click();
     }
 

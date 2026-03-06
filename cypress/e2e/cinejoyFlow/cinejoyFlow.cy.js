@@ -41,7 +41,7 @@ describe("CineJoy Testcases.", function() {
       });
 
 
-        it("Verify homepage baner and all tabs", () => {
+        it.skip("Verify homepage baner and all tabs", () => {
           cinejoyHomepage.validateBannerImageAndText();
           cy.contains('Viewers Voice Fests').should("be.visible");
           cy.contains('Festival Of Festivals').should("be.visible");

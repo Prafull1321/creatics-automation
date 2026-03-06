@@ -1,9 +1,8 @@
-import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
+import hitmakerPage from "../../pageObjectModule/hitmakerPage";
 import loginPage from "../../pageObjectModule/loginPage";
-import showcasePage from "../../pageObjectModule/showcasePage";
-import spotlightPage from "../../pageObjectModule/spotlightPage";
 
-describe("Showcase Testcases", function() {
+
+describe("CineJoy Testcases.", function() {
     const username = "0znclqyo3j@xkxkud.com";
     const mainPassword = "Test@123";
     const Production_URL = "https://creatics.org/";
@@ -14,7 +13,8 @@ describe("Showcase Testcases", function() {
       const Testing_URL = "https://testing.creatics.org/";
       const BASE_URL = Testing_URL;
     
-      beforeEach(() => {         
+      beforeEach(() => {        
+        cy.viewport(1280, 800); 
         loginPage.visit(BASE_URL);
         //cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
         loginPage.assertUrl(BASE_URL);
@@ -24,9 +24,11 @@ describe("Showcase Testcases", function() {
         cy.wait(2000);
         loginPage.loginButton();
         cy.wait(5000);
-        cinejoyHomepage.navigateToCinejoy();
-        cy.get("img[alt='Cinejoy Home Page']", {timeout: 10000}).should("be.visible");
-        cinejoyHomepage.navigateToShowcase();
+        hitmakerPage.navigateToHitmaker();
+        cy.contains("Get Inside the Studio & World Premiere of a Hit Film.", {timeout: 10000}).should("be.visible");
+        hitmakerPage.naviagteToHitmakerMainPage();
+        hitmakerPage.navigateToPreprod();
+        
     
         cy.on("window:alert", (message) => {
           const normalizedMessage = message
@@ -42,31 +44,24 @@ describe("Showcase Testcases", function() {
         });
       });
 
-      it("Verify showcase movie homepage", () => {
-        showcasePage.verifyShowcasePage();
-        showcasePage.verifyMovieDetails();         
+      it("Validate Pre production main page details added by the admin user" , () =>{
+        cy.contains("Engage With a Feast of Pre-Production Content and Opportunities.");
+        cy.contains("Polls & Insider Updates");
+        cy.contains("Reality Show: The Unscripted Star");
+        cy.contains("Ask Jude Anything");
       });
 
-      it("Verify user is able to watch movie", () => {
-        showcasePage.navigateToFeaturesPage();
-        showcasePage.navigateToWatchPage();  
+      it("Validate user is able to play episodes" , () =>{
+        hitmakerPage.verifyEpisodePage();
+        hitmakerPage.verifyCommentSection();
+        hitmakerPage.jewelFunction();
       });
 
-      it("Verify user is able to add movies in watchlist", () => {
-        showcasePage.addShowcaseMovieToWatchlist();
-        showcasePage.removeMovieFromWatchlist();
-      });
-
-      it("Verify user is able to rate the movie", () => {
-        showcasePage.naviagteToMoviePage();
-        //showcasePage.verifyMovieRate();
-        showcasePage.validateRatingSubmitted();
-      });
-
-      it("Validate Trailer, Special features, Cast and Crew, more info and message tab", () => {
-        showcasePage.naviagteToMoviePage();
-        //showcasePage.verifyTrailerPlayAndPause();
-        showcasePage.verifyCastCrewAndMoreInfo();
+      it("Validate Polls, updates ask team anything functionality under pre production" , () =>{
+        //hitmakerPage.verifyPolls();
+        hitmakerPage.verifyAskTeamAnything();
+        hitmakerPage.verifyUpdates();
+        hitmakerPage.jewelFunction();
       });
 
       afterEach(() => {
