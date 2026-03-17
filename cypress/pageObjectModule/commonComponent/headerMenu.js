@@ -4,6 +4,7 @@ class ProfileMenu {
   }
   dropDownMenu() {
     cy.get(".dropdown").first().click();
+    //cy.get("div[class='dropdown']").first().click();
   }
   selectMyProfile() {
     cy.get(".profileCard").contains("MY PROFILE").click();

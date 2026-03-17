@@ -6,7 +6,7 @@ import headerMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import { onboardSetup4 } from "../../pageObjectModule/onboardingPages";
 
 describe("My Account test cases (Profile Section).", function () {
-  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const username = "3gmu5omr92@mrotzis.com";
   const mainPassword = "Test@123";
   const newPassword = "Test@123";
   // const BASE_URL = "https://creatics.org/";

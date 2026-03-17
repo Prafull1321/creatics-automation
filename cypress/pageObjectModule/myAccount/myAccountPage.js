@@ -88,13 +88,13 @@ class MyAccountPage {
     cy.contains("Update I'm A Fan of ").click();
   }
   countSelectedFansOption() {
-    return cy.get(`input[type="checkbox"]:checked`).its("length");
+    return cy.get('input[type="checkbox"]:checked').its("length");
   }
   uncheckAllFansOptions() {
     return cy.get('input[type="checkbox"]').uncheck({ force: true });
   }
   uncheckedFanOption() {
-    return cy.get('input[type="checkbox"]:not(:checked)').its("length");
+    return cy.get('input[type="checkbox"]').should('not.be.checked').its("length");
   }
   getFanCheckboxContainer() {
     cy.get(".checkbox-container").click({ force: true });
