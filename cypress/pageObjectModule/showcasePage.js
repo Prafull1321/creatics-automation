@@ -5,10 +5,10 @@ class showcasePage {
     }
 
     verifyShowcasePage() {
-        cy.contains("Features").should("be.visible");
+        cy.contains("Features").should("be.visible").click();
+        
 
-
-        cy.get("button[class='movienameList']").last().click();
+        //cy.get("button[class='movienameList']").last().click();
 
     // Get selected movie text
         cy.get("[class='movienameList selectedMovie']")
@@ -64,10 +64,12 @@ class showcasePage {
     }
 
     naviagteToMoviePage(){
+        cy.contains('Features').click();
         cy.get('button[class="movie_button"]').contains("Movie Page").click();
     }
 
     addShowcaseMovieToWatchlist(){
+        cy.contains('Features').click();
         cy.get('button[class="pass-btn ng-star-inserted"]').should('be.visible').click();
 
         cy.on('window:confirm', (text) => {
@@ -92,7 +94,7 @@ class showcasePage {
         cy.get('button[type="button"]').contains(" Rate ").click();
         cy.wait(1000);
         cy.contains("My Ratings").should("be.visible");
-        cy.get('div[formcontrolname="rateValue"]').type(8);
+        cy.get('input[formcontrolname="rateValue"]').type(8);
         cy.get('button[class="btnclose ng-star-inserted"]').contains(" Rate ").click();
         cy.contains(" Thank You for Your Rating! You have rated 8 for this movie ").should("be.visible");
         cy.get('button[type="button"]').contains("Close").click();

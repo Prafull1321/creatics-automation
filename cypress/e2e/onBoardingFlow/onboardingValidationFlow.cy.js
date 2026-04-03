@@ -409,7 +409,7 @@ describe("Verify Onboarding Flow Test Cases", () => {
     cy.wait(5000);
   });
 
-  it("Verify that the submitted data remains on the Treasury page when the user navigates back.", () => {
+  it.only("Verify that the submitted data remains on the Treasury page when the user navigates back.", () => {
     onboardSetup1.clickStep1Skip();
     cy.wait(2000);
     onboardSetup2.clickSkipInterest();

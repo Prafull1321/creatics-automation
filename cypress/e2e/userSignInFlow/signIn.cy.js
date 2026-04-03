@@ -1,7 +1,7 @@
 import LoginPage from "../../pageObjectModule/loginPage";
 
 describe("Sign-In Page Test Cases", function () {
-  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const username = "3gmu5omr92@mrotzis.com";
   const mainPassword = "Test@123";
   const newPassword = "Test@123";
   const productionURL = "https://creatics.org/";

@@ -226,7 +226,7 @@ class MyAccountPage {
     cy.get(".remove-button").contains("Remove Profile Picture").click();
   }
   getUploadedProfileImg() {
-    return cy.get(".profile-picture");
+    return cy.get('img[alt="Profile Picture"]');
   }
   backgroundPictureSection() {
     cy.get("#mat-expansion-panel-header-9").click();

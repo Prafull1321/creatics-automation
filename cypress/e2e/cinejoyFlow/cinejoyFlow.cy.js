@@ -52,6 +52,7 @@ describe("CineJoy Testcases.", function() {
 
         it("Verify Passport page of cinejoy", () => {
           cinejoyHomepage.navigateToCommunityPassportPage();
+          //Passport upload profile photo script
           cy.contains("Community Passports", {timeout: 10000}).should("be.visible");
           cy.contains(' Trending ').should("be.visible");
           cy.contains('Like Minded').should("be.visible");

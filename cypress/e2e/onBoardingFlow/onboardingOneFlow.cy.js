@@ -149,23 +149,24 @@ describe("Verify Onboarding Flow Test Cases", () => {
     cy.wait(2000);
     onboardSetup3.clickTreasurySubmit();
     cy.wait(2000);
-    onboardSetup4.communityHeading().should("be.visible");
-    onboardSetup4.communnitySubText().should("be.visible");
-    onboardSetup4.clickVideoUpload();
-    onboardSetup4.videoSelect(universeVideo);
-    cy.wait(40000);
+    onboardSetup4.clickSkipVideoPage();
+    // onboardSetup4.communityHeading().should("be.visible");
+    // onboardSetup4.communnitySubText().should("be.visible");
+    // onboardSetup4.clickVideoUpload();
+    // onboardSetup4.videoSelect(universeVideo);
+    // cy.wait(40000);
 
     profilePage.imageCircle().should("be.visible");
     profilePage.getMyWordText().should("include.text", myWordText);
 
     profilePage.treasury(TreasuryTitle).should("be.visible");
 
-    profilePage.getUploadedVideo().should("be.visible");
-    const expectedSrcPattern = "universe.mp4";
-    profilePage
-      .getUploadedVideoSrc()
-      .should("have.attr", "src")
-      .and("include", expectedSrcPattern);
+    // profilePage.getUploadedVideo().should("be.visible");
+    // const expectedSrcPattern = "universe.mp4";
+    // profilePage
+    //   .getUploadedVideoSrc()
+    //   .should("have.attr", "src")
+    //   .and("include", expectedSrcPattern);
 
     selectImFan.forEach((selectImFan) => {
       profilePage

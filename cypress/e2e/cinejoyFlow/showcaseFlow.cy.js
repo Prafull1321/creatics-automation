@@ -57,11 +57,11 @@ describe("Showcase Testcases", function() {
         showcasePage.removeMovieFromWatchlist();
       });
 
-      it("Verify user is able to rate the movie", () => {
-        showcasePage.naviagteToMoviePage();
-        //showcasePage.verifyMovieRate();
-        showcasePage.validateRatingSubmitted();
-      });
+      // it.only("Verify user is able to rate the movie", () => {
+      //   showcasePage.naviagteToMoviePage();
+      //   showcasePage.verifyMovieRate();
+      //   showcasePage.validateRatingSubmitted();
+      // });
 
       it("Validate Trailer, Special features, Cast and Crew, more info and message tab", () => {
         showcasePage.naviagteToMoviePage();

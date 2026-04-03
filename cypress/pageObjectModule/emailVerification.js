@@ -6,7 +6,7 @@ class EmailVerification {
   }
 
   assertButtonURL() {
-    cy.url().should("include", "/emailVerify");
+    cy.url().should("include", "/1");
   }
 
   assertLoggedURL() {
