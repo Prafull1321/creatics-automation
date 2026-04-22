@@ -28,6 +28,7 @@
 // cypress/support/commands.js
 
 // ------------------------------------------------------------
+// cypress/support/commands.js
 
 Cypress.on("uncaught:exception", (err, runnable) => {
   // We expect a classList error to occur, so we return false to prevent Cypress from failing the test
@@ -36,6 +37,10 @@ Cypress.on("uncaught:exception", (err, runnable) => {
       "Cannot read properties of undefined (reading 'classList')"
     )
   ) {
+    return false;
+  }
+  // Suppress Stripe checkout expressCheckout mount error
+  if (err.message.includes("expressCheckout")) {
     return false;
   }
   // If we don't recognize the error, let Cypress handle it normally

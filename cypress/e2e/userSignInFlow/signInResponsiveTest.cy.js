@@ -12,7 +12,7 @@ const viewports = [
 
 viewports.forEach(viewport => {
 describe(`Sign-In Page Test Cases - ${viewport.name}`, function () {
-  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const username = "3gmu5omr92@mrotzis.com";
   const mainPassword = "Test@123";
   const newPassword = "Test@123";
   const productionURL = "https://creatics.org/";

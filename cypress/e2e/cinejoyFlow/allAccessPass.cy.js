@@ -30,13 +30,16 @@ describe("Verify All Access Pass Test Cases", () => {
       cy.initializeMailSlurp().then((generatedInbox) => {
         inbox = generatedInbox;
       });
-  
+
       LoginPage.visit(BASE_URL);
       LoginPage.assertUrl(Assert_URL);
     });
-  
 
-    it("Verify buy pass flow", () => {
+
+    it("Verify buy pass flow", { retries: 0 }, () => {
+        const promoCode = "Free4All";
+
+        // 1. Sign up a new user so the All-Access Pass is guaranteed unpurchased.
         LoginPage.signInOption();
         LoginPage.signUpButton();
         SignUpPage.fillFirstName(FirstName);
@@ -44,13 +47,15 @@ describe("Verify All Access Pass Test Cases", () => {
         SignUpPage.fillEmail(inbox.emailAddress);
         SignUpPage.fillPassword(Password);
         SignUpPage.joinButton();
-        
+
         cy.getLatestEmail(inbox.id).then((email) => {
           cy.extractVerifyLink(email).then((verifyLink) => {
             // Visit the verification link
             EmailVerification.visitEmailLink(verifyLink);
           });
         });
+
+        // 2. Complete onboarding.
         onboardSetup2.clickPopupGotItButton();
         onboardSetup1.clickStep1Skip();
         cy.wait(2000);
@@ -59,36 +64,35 @@ describe("Verify All Access Pass Test Cases", () => {
         onboardSetup3.clickSkipTreasury();
         onboardSetup4.clickSkipVideoPage();
         cy.wait(2000);
+
+        // 3. Navigate to Cinejoy → All-Access Passes.
         cy.get("img[alt='creatics_logo'][src='assets/images/logo.jpg'][height='45']").click();
         cinejoyHomepage.navigateToCinejoy();
         cinejoyHomepage.allAccessPassBtn();
         cinejoyHomepage.buyAllAccessPass();
 
-        // 1️⃣ Intercept Stripe session creation API
-        cy.intercept(
-          'POST',
-          '**/api/stripe-purchase/payment-session*',
-          {
-            statusCode: 200,
-            body: {
-              success: true,
-              sessionId: 'cs_test_123456789'
-            }
-          }
-        ).as('createStripeSession');
+        // 4. Complete the purchase with Free4All promo code via Stripe checkout.
+        cinejoyHomepage.completeAllAccessPassPurchase(promoCode);
 
-        // 2️⃣ Click Buy Pass / Buy Now
-        cy.contains('Buy Now').should('be.visible').click();
+        // 5. Wait for Stripe to redirect back to the app.
+        cy.url({ timeout: 60000 }).should('include', 'creatics.org');
+        cy.wait(3000);
 
-        // // 4️⃣ Wait for Stripe session API call
-        // cy.wait('@createStripeSession');
+        // 6. Validate the purchase confirmation dialog.
+        cy.contains('Thank you for your purchase', { timeout: 15000 }).should('be.visible');
+        cy.contains('$0.00', { timeout: 10000 }).should('be.visible');
 
-        // // 5️⃣ Verify success behavior (adjust based on your app)
-        // cy.url({ timeout: 10000 }).should('include', 'success');
-        // //cy.contains(/payment successful|thank you|order confirmed/i).should('be.visible');
-        
+        // 7. Click the "My Tickets" link inside the success dialog to navigate.
+        cy.contains('a', 'My Tickets', { timeout: 10000 }).click({ force: true });
+        cy.wait(5000);
+
+        // 8. Validate the All-Access Pass appears in the My Tickets modal.
+        cy.get('ngb-modal-window', { timeout: 15000 })
+            .should('be.visible')
+            .contains('All-Access', { timeout: 10000 })
+            .should('be.visible');
     });
-       
+
    afterEach(() => {
       // Runs after each test
     cy.wait(2000);

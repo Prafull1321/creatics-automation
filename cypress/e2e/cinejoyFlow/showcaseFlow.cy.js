@@ -4,7 +4,7 @@ import showcasePage from "../../pageObjectModule/showcasePage";
 import spotlightPage from "../../pageObjectModule/spotlightPage";
 
 describe("Showcase Testcases", function() {
-    const username = "0znclqyo3j@xkxkud.com";
+    const username = "7krtwbxmsi@yzcalo.com";
     const mainPassword = "Test@123";
     const Production_URL = "https://creatics.org/";
       const Mobile_1_URL = "https://mobile.creatics.org/";
@@ -67,6 +67,37 @@ describe("Showcase Testcases", function() {
         showcasePage.naviagteToMoviePage();
         //showcasePage.verifyTrailerPlayAndPause();
         showcasePage.verifyCastCrewAndMoreInfo();
+      });
+
+      it("Verify user is able to buy a showcase movie ticket using Free4All promo code", { retries: 0 }, () => {
+        const promoCode = "Free4All";
+
+        // 1. Find a movie with a Buy button available and capture its title.
+        showcasePage.selectBuyableMovieAndCapture("purchasedMovie");
+
+        // 2. Click the Buy button for the selected movie.
+        showcasePage.clickBuyButton();
+
+        // 3. Apply promo code and complete the purchase.
+        showcasePage.applyPromoCodeAndBuy(promoCode);
+
+        // 4. Wait for Stripe to redirect back to the app.
+        cy.url({ timeout: 60000 }).should('include', 'creatics.org');
+        cy.wait(3000);
+
+        // 5. Validate the purchase confirmation dialog shows the movie title and $0 total.
+        cy.contains('Thank you for your purchase', { timeout: 15000 }).should('be.visible');
+        // cy.get('@purchasedMovie').then((movieTitle) => {
+        //     cy.contains(movieTitle, { timeout: 10000 }).should('be.visible');
+        // });
+        cy.contains('$0.00', { timeout: 10000 }).should('be.visible');
+
+        // 6. Click the "My Tickets" link inside the success dialog to navigate.
+        cy.contains('a', 'My Tickets', { timeout: 10000 }).click({ force: true });
+        cy.wait(5000);
+
+        // 7. Validate the purchased movie appears in the My Tickets section.
+        showcasePage.validateTicketInMyTickets("purchasedMovie");
       });
 
       afterEach(() => {

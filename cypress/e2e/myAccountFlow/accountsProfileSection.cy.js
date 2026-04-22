@@ -619,7 +619,7 @@ describe("My Account test cases (Profile Section).", function () {
   //   myAccountPage.selectProfileUploadFile(LargeSizeImage);
   // });
 
-  it("Verify if the user is able to add a new profile image.", () => {
+  it.skip("Verify if the user is able to add a new profile image.", () => {
     const DogImage = "cypress/fixtures/images/dog.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();

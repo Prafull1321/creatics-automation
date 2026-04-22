@@ -153,16 +153,52 @@ class CinejoyHomepage{
     }
 
     buyAllAccessPass(){
-        cy.get("div[class='mobile-container'] div[class='bg-black'] button[class='btn all-access-btn btn-lg fw-bold ng-star-inserted']").click();
-        cy.contains("Unlock All Spotlight Events and Showcase Movies").should("be.visible");
-        //cy.get('span[class="mdc-button__label"]').contains(" Buy Now ").click();
-        //cy.wait(10000);
-        //cy.get("span[class='mdc-button__label']").contains("OK").should('be.visible').click();
-        //cy.get("input[placeholder='Add promotion code']").click();
+        // The "event has ended" popup may overlay the page (intermittent).
+        // Force-click "Buy Pass" to bypass it — no need to dismiss first.
+        cy.wait(3000);
+        cy.get("div[class='mobile-container']")
+            .contains('Buy Pass', { timeout: 10000 })
+            .click({ force: true });
+        cy.wait(2000);
+    }
+
+    // Clicks Buy Now on the All-Access Pass dialog, confirms the Stripe redirect,
+    // applies the promotional code on Stripe checkout, and completes the order.
+    completeAllAccessPassPurchase(promoCode){
+        // Step 1 — Click Buy Now on the pass dialog.
+        cy.contains('Buy Now', { timeout: 15000 })
+            .should('be.visible')
+            .click();
+
+        // Step 2 — Pre-register the cross-origin exception handler for Stripe.
+        cy.origin('https://checkout.stripe.com', () => {
+            Cypress.on('uncaught:exception', () => false);
+        });
+
+        // Step 3 — Confirm the Stripe redirect dialog.
+        cy.contains('button', 'OK', { timeout: 15000 })
+            .should('be.visible')
+            .click();
+
+        // Step 4 — Interact with the Stripe checkout page (cross-origin).
+        cy.origin('https://checkout.stripe.com', { args: { promoCode } }, ({ promoCode }) => {
+            cy.contains('Add promotion code', { timeout: 30000 }).click();
+
+            cy.get('input[name="promotionCode"]', { timeout: 10000 })
+                .should('be.visible')
+                .type(promoCode);
+
+            cy.contains('Apply', { timeout: 10000 }).click();
+            cy.contains('100% off', { timeout: 10000 }).should('be.visible');
+
+            cy.get('.SubmitButton', { timeout: 15000 })
+                .should('not.be.disabled')
+                .click();
+        });
     }
 
     navigateToShowcase(){
-        cy.get("a[href='/cinejoy/showcase']").contains(" SHOWCASE film screenings!").click();
+        cy.get("a[href='/cinejoy/showcase']").filter(':visible').first().click();
     }
 
     addShowcaseMovieToWatchlist(){
@@ -183,6 +219,15 @@ class CinejoyHomepage{
 
     navigateToWatchlist(){
         cy.get("a[href='/cinejoy/passholders-watchlist']").contains("My Watchlist").click();
+    }
+
+    navigateToMyTickets(){
+        // Top-level "My Tickets" link/button on the Cinejoy page.
+        // Uses contains() so the click works even if the href differs slightly
+        // across environments.
+        cy.contains(/^\s*My Tickets\s*$/i, { timeout: 15000 })
+            .should('be.visible')
+            .click();
     }
 
     removeWatchlistMovies(){
