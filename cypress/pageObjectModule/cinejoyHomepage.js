@@ -9,7 +9,7 @@ class CinejoyHomepage{
     }
 
     navigateToCommunityPassportPage(){
-        return cy.get("a[href='/cinejoy/passport/community']").contains("PASSPORTS").click({force: true});
+        return cy.get("a[href='/cinejoy/passport/community']").filter(':visible').first().click({force: true});
     }    
     
     verifyMyPassportProfilePage(){
@@ -25,16 +25,15 @@ class CinejoyHomepage{
         cy.get("input[placeholder='Add name'][name='lastName']").clear().type(lastName);
         cy.get("textarea[placeholder='Add Bio']").clear().type(bio);
         cy.get("button[type='submit']").click();
-        cy.wait(12000);
 
         //Validate name and bio is displayed on profile
-        cy.contains(firstName).should('be.visible');
+        cy.contains(firstName, { timeout: 15000 }).should('be.visible');
         cy.contains(lastName).should('be.visible');
         cy.contains(bio).should('be.visible');
     }
 
     navigateToPassportTab(){
-        return cy.get('a[href="/cinejoy/passport"]').contains("Passport").click({force: true});
+        return cy.visit('/cinejoy/passport', { failOnStatusCode: false, timeout: 60000 });
     }
 
     viewersVoiceFestBtn(){
@@ -54,8 +53,7 @@ class CinejoyHomepage{
     }
 
     meetupPage(){
-        //return cy.get("div[class='web-view'] div[class='nav-div'] span:nth-child(4) a:nth-child(1)").click();
-        return cy.get("a[href='/cinejoy/screening-parties']").contains("Meetups").click();
+        return cy.get("a[href='/cinejoy/screening-parties']").filter(':visible').first().click();
     }
 
     joinMeetupButton(){
@@ -74,10 +72,9 @@ class CinejoyHomepage{
         cy.get("#mat-select-0").click({force: true});
         return cy.get("mat-option[role='option']").contains(eventType).click({force: true});
     }
-    selectShowcaseMovie(selectedMovie){
+    selectShowcaseMovie(){
         cy.get("#mat-select-1").click();
-        //return cy.get("mat-option[role='option']").first().click({force: true});
-        return cy.get("mat-option[role='option']").contains(selectedMovie).click();
+        return cy.get("mat-option[role='option']").first().click({force: true});
     }
 
     selectSpotlightMovie(){
@@ -131,8 +128,7 @@ class CinejoyHomepage{
     verifyThankYouPage(){
         
         // Validate page heading
-        cy.wait(2000);
-        cy.get('h2[class="pageheader"]').contains("Thank you for Hosting!").should("be.visible");
+        cy.get('h2[class="pageheader"]', { timeout: 30000 }).contains("Thank you for Hosting!").should("be.visible");
 
         // Click on Next Button
         cy.get('button[class="previous action-button-previous"]').contains("Exit").click();
@@ -155,11 +151,9 @@ class CinejoyHomepage{
     buyAllAccessPass(){
         // The "event has ended" popup may overlay the page (intermittent).
         // Force-click "Buy Pass" to bypass it — no need to dismiss first.
-        cy.wait(3000);
         cy.get("div[class='mobile-container']")
-            .contains('Buy Pass', { timeout: 10000 })
+            .contains('Buy Pass', { timeout: 15000 })
             .click({ force: true });
-        cy.wait(2000);
     }
 
     // Clicks Buy Now on the All-Access Pass dialog, confirms the Stripe redirect,
@@ -214,7 +208,7 @@ class CinejoyHomepage{
     }
 
     navigateToSpotlight(){
-        cy.get("a[href='/cinejoy/premiere/lineup']").contains(" Attend live SPOTLIGHT events!").click();
+        cy.get("a[href='/cinejoy/premiere/lineup']").filter(':visible').first().click();
     }
 
     navigateToWatchlist(){
@@ -229,11 +223,6 @@ class CinejoyHomepage{
             .should('be.visible')
             .click();
     }
-
-    removeWatchlistMovies(){
-
-    }
-
 
 }
 

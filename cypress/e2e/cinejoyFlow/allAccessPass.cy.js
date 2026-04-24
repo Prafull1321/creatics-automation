@@ -1,7 +1,6 @@
 import LoginPage from "../../pageObjectModule/loginPage";
 import SignUpPage from "../../pageObjectModule/signUpPage";
 import EmailVerification from "../../pageObjectModule/emailVerification";
-import loginPage from "../../pageObjectModule/loginPage";
 import {
   onboardSetup1,
   onboardSetup2,
@@ -14,14 +13,8 @@ describe("Verify All Access Pass Test Cases", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
   const Password = "Test@123";
-  const emailAddress = "0znclqyo3j@xkxkud.com";
   const Testing_URL = "https://testing.creatics.org/";
-  const Mobile_1_URL = "https://mobile.creatics.org/";
-  const Mobile_2_URL = "https://mobilej21.creatics.org/";
-  const Dev_URL = "https://dev.creatics.org/";
-  const logInURL = "https://dev.creatics.org/userProfiles";
   const BASE_URL = Testing_URL;
-  const Assert_URL = "https://testing.creatics.org/";
   let inbox;
 
 
@@ -32,7 +25,7 @@ describe("Verify All Access Pass Test Cases", () => {
       });
 
       LoginPage.visit(BASE_URL);
-      LoginPage.assertUrl(Assert_URL);
+      LoginPage.assertUrl(BASE_URL);
     });
 
 
@@ -58,12 +51,9 @@ describe("Verify All Access Pass Test Cases", () => {
         // 2. Complete onboarding.
         onboardSetup2.clickPopupGotItButton();
         onboardSetup1.clickStep1Skip();
-        cy.wait(2000);
-        // onboardSetup2.getNotificationPopup();
         onboardSetup2.clickSkipInterest();
         onboardSetup3.clickSkipTreasury();
         onboardSetup4.clickSkipVideoPage();
-        cy.wait(2000);
 
         // 3. Navigate to Cinejoy → All-Access Passes.
         cy.get("img[alt='creatics_logo'][src='assets/images/logo.jpg'][height='45']").click();
@@ -76,7 +66,6 @@ describe("Verify All Access Pass Test Cases", () => {
 
         // 5. Wait for Stripe to redirect back to the app.
         cy.url({ timeout: 60000 }).should('include', 'creatics.org');
-        cy.wait(3000);
 
         // 6. Validate the purchase confirmation dialog.
         cy.contains('Thank you for your purchase', { timeout: 15000 }).should('be.visible');
@@ -84,7 +73,6 @@ describe("Verify All Access Pass Test Cases", () => {
 
         // 7. Click the "My Tickets" link inside the success dialog to navigate.
         cy.contains('a', 'My Tickets', { timeout: 10000 }).click({ force: true });
-        cy.wait(5000);
 
         // 8. Validate the All-Access Pass appears in the My Tickets modal.
         cy.get('ngb-modal-window', { timeout: 15000 })
@@ -94,8 +82,6 @@ describe("Verify All Access Pass Test Cases", () => {
     });
 
    afterEach(() => {
-      // Runs after each test
-    cy.wait(2000);
     cy.clearCookies();
     });
   });

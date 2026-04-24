@@ -619,36 +619,36 @@ describe("My Account test cases (Profile Section).", function () {
   //   myAccountPage.selectProfileUploadFile(LargeSizeImage);
   // });
 
-  it.skip("Verify if the user is able to add a new profile image.", () => {
-    const DogImage = "cypress/fixtures/images/dog.jpg";
-    myAccountPage.profileSection();
-    myAccountPage.profilePictureSection();
-    cy.wait(4000);
-    myAccountPage.clickUploadProfilePictureSection().should("be.visible");
-    myAccountPage.selectProfileUploadFile(DogImage);
-    myAccountPage.moveCropBox(200, 200, 500, 500);
-    myAccountPage.dragCropArea(100, 100, 400, 400);
-    myAccountPage.clickCropButton();
-    cy.wait(4000);
-    myAccountPage.clickProfileUploadBtn();
-    cy.wait(10000);
-    myAccountPage
-      .getUploadedProfileImg()
-      .should("be.visible")
-      .then(($img) => {
-        // Extract the src attribute of the uploaded image
-        const newProfileSrc = $img.attr("src");
-        cy.wrap(newProfileSrc).as("newProfileSrc");
-      });
-    headerMenu.dropDownMenu();
-    headerMenu.selectMyProfile();
-    cy.wait(8000);
-    cy.get("@newProfileSrc").then((newProfileSrc) => {
-      cy.get(".img-circle")
-        .should("be.visible")
-        .and("have.attr", "src", newProfileSrc);
-    });
-  });
+  // it.skip("Verify if the user is able to add a new profile image.", () => {
+  //   const DogImage = "cypress/fixtures/images/dog.jpg";
+  //   myAccountPage.profileSection();
+  //   myAccountPage.profilePictureSection();
+  //   cy.wait(4000);
+  //   myAccountPage.clickUploadProfilePictureSection().should("be.visible");
+  //   myAccountPage.selectProfileUploadFile(DogImage);
+  //   myAccountPage.moveCropBox(200, 200, 500, 500);
+  //   myAccountPage.dragCropArea(100, 100, 400, 400);
+  //   myAccountPage.clickCropButton();
+  //   cy.wait(4000);
+  //   myAccountPage.clickProfileUploadBtn();
+  //   cy.wait(10000);
+  //   myAccountPage
+  //     .getUploadedProfileImg()
+  //     .should("be.visible")
+  //     .then(($img) => {
+  //       // Extract the src attribute of the uploaded image
+  //       const newProfileSrc = $img.attr("src");
+  //       cy.wrap(newProfileSrc).as("newProfileSrc");
+  //     });
+  //   headerMenu.dropDownMenu();
+  //   headerMenu.selectMyProfile();
+  //   cy.wait(8000);
+  //   cy.get("@newProfileSrc").then((newProfileSrc) => {
+  //     cy.get(".img-circle")
+  //       .should("be.visible")
+  //       .and("have.attr", "src", newProfileSrc);
+  //   });
+  // });
 
   it("Verify if the user is able to edit the background from the default four images.", () => {
     const imageNumber = 1;

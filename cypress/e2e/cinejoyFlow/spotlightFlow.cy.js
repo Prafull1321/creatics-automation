@@ -5,13 +5,8 @@ import spotlightPage from "../../pageObjectModule/spotlightPage";
 describe("Spotlight Testcases.", function() {
     const username = "0znclqyo3j@xkxkud.com";
     const mainPassword = "Test@123";
-    const Production_URL = "https://creatics.org/";
-      const Mobile_1_URL = "https://mobile.creatics.org/";
-      const Mobile_2_URL = "https://mobilej21.creatics.org/";
-      const Dev_URL = "https://dev.creatics.org/";
-      const logInURL = "https://dev.creatics.org/userProfiles";
-      const Testing_URL = "https://testing.creatics.org/";
-      const BASE_URL = Testing_URL;
+    const Testing_URL = "https://testing.creatics.org/";
+    const BASE_URL = Testing_URL;
     
       beforeEach(() => {         
         loginPage.visit(BASE_URL);
@@ -20,9 +15,8 @@ describe("Spotlight Testcases.", function() {
         loginPage.signInOption();
         loginPage.emailText(username);
         loginPage.passwordText(mainPassword);
-        cy.wait(2000);
         loginPage.loginButton();
-        cy.wait(5000);
+        cy.get('a[href="/cinejoy"]', { timeout: 15000 }).should('be.visible');
         cinejoyHomepage.navigateToCinejoy();
         cy.get("img[alt='Cinejoy Home Page']", {timeout: 10000}).should("be.visible");
         cinejoyHomepage.navigateToSpotlight();
@@ -61,8 +55,6 @@ describe("Spotlight Testcases.", function() {
 
 
   afterEach(() => {
-    // Runs after each test
-    cy.wait(2000);
     cy.clearCookies();
   });
 

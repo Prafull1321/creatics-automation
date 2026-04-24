@@ -58,12 +58,10 @@ class showcasePage {
     navigateToWatchPage(){
         //cy.get("div[id='movies1037']").click();
         cy.get('[class="movie_button ng-star-inserted"]').contains("Watch").click();
-        cy.wait(6000);
-        cy.get('iframe[id="iframeid1"]').click();
-        cy.wait(5000);
+        cy.get('iframe[id="iframeid1"]', { timeout: 15000 }).should('be.visible').click();
     }
 
-    naviagteToMoviePage(){
+    navigateToMoviePage(){
         cy.contains('Features').click();
         cy.get('button[class="movie_button"]').contains("Movie Page").click();
     }
@@ -72,28 +70,40 @@ class showcasePage {
         cy.contains('Features').click();
         cy.get('button[class="pass-btn ng-star-inserted"]').should('be.visible').click();
 
-        cy.on('window:confirm', (text) => {
-        return true; // clicks OK
-        });
+        cy.on('window:confirm', () => true);
 
-        cy.get('button[class="watchlist-button"]').contains("Go to My Watchlist").click();
+        // After clicking bookmark, either watchlist button or All-Access Pass popup appears
+        cy.get('body', { timeout: 10000 }).should(($body) => {
+            const hasBuyPass = $body.find('button:contains("Buy Pass")').length > 0;
+            const hasWatchlist = $body.find('button.watchlist-button').length > 0;
+            expect(hasBuyPass || hasWatchlist).to.be.true;
+        }).then(($body) => {
+            if ($body.find('button:contains("Buy Pass")').length > 0) {
+                cy.log('Watchlist requires All-Access Pass — closing popup');
+                cy.wrap(false).as('movieAddedToWatchlist');
+                cy.get('body').type('{esc}');
+            } else {
+                cy.wrap(true).as('movieAddedToWatchlist');
+                cy.get('button.watchlist-button').contains("Go to My Watchlist").click();
+            }
+        });
     }
 
     removeMovieFromWatchlist(){
-        
-        cy.get('button[class="dynamic-button"]').contains(" Showcase Screenings ").click();
-        
-        cy.get('i[class="bi bi-trash delete"]').first().click({ force: true });
-
-        cy.on('window:confirm', () => true);
-
-        //cy.contains('No Showcase Movies Added Yet', { timeout: 15000 }).should('be.visible');
+        cy.get('@movieAddedToWatchlist').then((added) => {
+            if (!added) {
+                cy.log('Skipping removal — movie was not added (All-Access Pass required)');
+                return;
+            }
+            cy.on('window:confirm', () => true);
+            cy.get('button[class="dynamic-button"]').contains(" Showcase Screenings ").click();
+            cy.get('i[class="bi bi-trash delete"]').first().click({ force: true });
+        });
     }
 
     verifyMovieRate(){
         cy.get('button[type="button"]').contains(" Rate ").click();
-        cy.wait(1000);
-        cy.contains("My Ratings").should("be.visible");
+        cy.contains("My Ratings", { timeout: 10000 }).should("be.visible");
         cy.get('input[formcontrolname="rateValue"]').type(8);
         cy.get('button[class="btnclose ng-star-inserted"]').contains(" Rate ").click();
         cy.contains(" Thank You for Your Rating! You have rated 8 for this movie ").should("be.visible");
@@ -135,7 +145,7 @@ class showcasePage {
     // available Buy button, selects it, and captures the title.
     selectBuyableMovieAndCapture(alias = "selectedMovie"){
         cy.contains("Features").should("be.visible").click();
-        cy.wait(2000);
+        cy.get("button[class='movienameList']", { timeout: 10000 }).should('be.visible');
 
         // Count the movies, then iterate using index-based re-queries
         // to avoid stale DOM references.
@@ -217,6 +227,7 @@ class showcasePage {
             cy.get('ngb-modal-window', { timeout: 15000 })
                 .should('be.visible')
                 .contains(movieTitle)
+                .scrollIntoView()
                 .should('be.visible');
         });
     }

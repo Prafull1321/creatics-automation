@@ -1,18 +1,12 @@
 import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
 import loginPage from "../../pageObjectModule/loginPage";
 import showcasePage from "../../pageObjectModule/showcasePage";
-import spotlightPage from "../../pageObjectModule/spotlightPage";
 
 describe("Showcase Testcases", function() {
     const username = "7krtwbxmsi@yzcalo.com";
     const mainPassword = "Test@123";
-    const Production_URL = "https://creatics.org/";
-      const Mobile_1_URL = "https://mobile.creatics.org/";
-      const Mobile_2_URL = "https://mobilej21.creatics.org/";
-      const Dev_URL = "https://dev.creatics.org/";
-      const logInURL = "https://dev.creatics.org/userProfiles";
-      const Testing_URL = "https://testing.creatics.org/";
-      const BASE_URL = Testing_URL;
+    const Testing_URL = "https://testing.creatics.org/";
+    const BASE_URL = Testing_URL;
     
       beforeEach(() => {         
         loginPage.visit(BASE_URL);
@@ -21,9 +15,8 @@ describe("Showcase Testcases", function() {
         loginPage.signInOption();
         loginPage.emailText(username);
         loginPage.passwordText(mainPassword);
-        cy.wait(2000);
         loginPage.loginButton();
-        cy.wait(5000);
+        cy.get('a[href="/cinejoy"]', { timeout: 15000 }).should('be.visible');
         cinejoyHomepage.navigateToCinejoy();
         cy.get("img[alt='Cinejoy Home Page']", {timeout: 10000}).should("be.visible");
         cinejoyHomepage.navigateToShowcase();
@@ -58,13 +51,13 @@ describe("Showcase Testcases", function() {
       });
 
       // it.only("Verify user is able to rate the movie", () => {
-      //   showcasePage.naviagteToMoviePage();
+      //   showcasePage.navigateToMoviePage();
       //   showcasePage.verifyMovieRate();
       //   showcasePage.validateRatingSubmitted();
       // });
 
       it("Validate Trailer, Special features, Cast and Crew, more info and message tab", () => {
-        showcasePage.naviagteToMoviePage();
+        showcasePage.navigateToMoviePage();
         //showcasePage.verifyTrailerPlayAndPause();
         showcasePage.verifyCastCrewAndMoreInfo();
       });
@@ -83,7 +76,6 @@ describe("Showcase Testcases", function() {
 
         // 4. Wait for Stripe to redirect back to the app.
         cy.url({ timeout: 60000 }).should('include', 'creatics.org');
-        cy.wait(3000);
 
         // 5. Validate the purchase confirmation dialog shows the movie title and $0 total.
         cy.contains('Thank you for your purchase', { timeout: 15000 }).should('be.visible');
@@ -94,15 +86,12 @@ describe("Showcase Testcases", function() {
 
         // 6. Click the "My Tickets" link inside the success dialog to navigate.
         cy.contains('a', 'My Tickets', { timeout: 10000 }).click({ force: true });
-        cy.wait(5000);
 
         // 7. Validate the purchased movie appears in the My Tickets section.
         showcasePage.validateTicketInMyTickets("purchasedMovie");
       });
 
       afterEach(() => {
-    // Runs after each test
-    cy.wait(2000);
     cy.clearCookies();
   });
 
