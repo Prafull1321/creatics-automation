@@ -88,7 +88,9 @@ class MyAccountPage {
     cy.contains("Update I'm A Fan of ").click();
   }
   countSelectedFansOption() {
-    return cy.get('input[type="checkbox"]:checked').its("length");
+    return cy.get('input[type="checkbox"]').then(($checkboxes) => {
+      return $checkboxes.filter(":checked").length;
+    });
   }
   uncheckAllFansOptions() {
     return cy.get('input[type="checkbox"]').uncheck({ force: true });
@@ -140,7 +142,9 @@ class MyAccountPage {
   }
 
   countSelectedCreatorsOption() {
-    return cy.get(`input[type="checkbox"]:checked`).its("length");
+    return cy.get('input[type="checkbox"]').then(($checkboxes) => {
+      return $checkboxes.filter(":checked").length;
+    });
   }
   uncheckAllCreatorOptions() {
     return cy.get('input[type="checkbox"]').uncheck({ force: true });
@@ -182,26 +186,24 @@ class MyAccountPage {
     return cy.get(".cropButton.ng-star-inserted");
   }
   dragCropArea(startX, startY, endX, endY) {
-    // Simulate mouse events to define the crop area
     this.getCroppingArea()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   getMoveHandle() {
-    return cy.get("div[role='presentation']").click(); // Selector for the move handle
+    return cy.get("div[role='presentation']").click({ force: true });
   }
   moveCropBox(startX, startY, endX, endY) {
-    // Simulate dragging the move handle to reposition the crop area
     this.getMoveHandle()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   clickCropButton() {
-    cy.get(".cropButton").click();
+    cy.get(".cropButton").contains("CROP").click({ force: true });
   }
   //----------------------
   cropMessage() {

@@ -468,25 +468,21 @@ describe("My Account test cases (Profile Section).", function () {
       if (selectedCount < maxAllowedSelections) {
         myAccountPage.getCreatorsOption(AddingOption).check();
         myAccountPage.clickUpdateCreatorBtn();
+        cy.wait(4000);
         myAccountPage
           .countSelectedCreatorsOption()
           .should("be.lte", maxAllowedSelections);
       }
     });
-    const CheckAddedOption = [AddingOption];
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
     cy.wait(6000);
-    CheckAddedOption.forEach((CheckAddedOption) => {
-      profilePage
-        .getCreatorText(CheckAddedOption)
-        .invoke("text")
-        .then((text) => {
-          expect(text.replace(/\u00a0/g, " ").trim()).to.equal(
-            CheckAddedOption
-          );
-        });
-    });
+    profilePage
+      .getCreatorText(AddingOption)
+      .invoke("text")
+      .then((text) => {
+        expect(text.replace(/\u00a0/g, " ").trim()).to.equal(AddingOption);
+      });
   });
 
   it("Verify the image selection functionality in the Profile Picture section through upload or change.", () => {
@@ -494,13 +490,16 @@ describe("My Account test cases (Profile Section).", function () {
     const plantImage = "cypress/fixtures/images/plant.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
-    cy.wait(8000);
-    // Check if the image with alt "Profile Picture" is present
+    cy.get("#mat-expansion-panel-header-8", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(3000);
     cy.get("body").then(($body) => {
       if ($body.find('img[alt="Profile Picture"]').length) {
-        // If the image is present, 'Change Picture' button should be shown
         myAccountPage.clickChangeProfilePictureSection();
         myAccountPage.selectProfileUploadFile(plantImage);
+        cy.get("div[role='presentation']", { timeout: 10000 }).should("be.visible");
+        cy.get(".required", { timeout: 10000 }).should("be.visible");
+        cy.wait(2000);
         myAccountPage.moveCropBox(200, 200, 500, 500);
         myAccountPage.dragCropArea(100, 100, 400, 400);
         myAccountPage.clickCropButton();
@@ -508,9 +507,11 @@ describe("My Account test cases (Profile Section).", function () {
         myAccountPage.clickChangeProfileBtn();
         cy.wait(10000);
       } else {
-        // If the image is not present, 'Upload Picture' button should be shown
         myAccountPage.clickUploadProfilePictureSection().should("be.visible");
         myAccountPage.selectProfileUploadFile(DogImage);
+        cy.get("div[role='presentation']", { timeout: 10000 }).should("be.visible");
+        cy.get(".required", { timeout: 10000 }).should("be.visible");
+        cy.wait(2000);
         myAccountPage.moveCropBox(200, 200, 500, 500);
         myAccountPage.dragCropArea(100, 100, 400, 400);
         myAccountPage.clickCropButton();
@@ -519,18 +520,16 @@ describe("My Account test cases (Profile Section).", function () {
         cy.wait(10000);
       }
     });
-    cy.wait(10000);
     myAccountPage
       .getUploadedProfileImg()
-      .should("be.visible")
+      .should("be.visible", { timeout: 20000 })
       .then(($img) => {
-        // Extract the src attribute of the uploaded image
         const newProfileSrc = $img.attr("src");
         cy.wrap(newProfileSrc).as("newProfileSrc");
       });
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
-    cy.wait(8000);
+    cy.get(".img-circle", { timeout: 15000 }).should("be.visible");
     cy.get("@newProfileSrc").then((newProfileSrc) => {
       cy.get(".img-circle")
         .should("be.visible")
@@ -542,13 +541,17 @@ describe("My Account test cases (Profile Section).", function () {
     const plantImage = "cypress/fixtures/images/plant.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
-    cy.wait(4000);
+    cy.get("#mat-expansion-panel-header-8", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(2000);
     myAccountPage.clickChangeProfileBtn();
     myAccountPage.clickChangeProfilePictureSection();
     myAccountPage.selectProfileUploadFile(plantImage);
+    cy.get("div[role='presentation']", { timeout: 10000 }).should("be.visible");
+    cy.get(".required", { timeout: 10000 }).should("be.visible");
+    cy.wait(2000);
     myAccountPage.moveCropBox(200, 200, 500, 500);
     myAccountPage.dragCropArea(100, 100, 400, 400);
-
     myAccountPage.clickCropButton();
     cy.wait(4000);
     myAccountPage.clickChangeProfileBtn();
@@ -556,16 +559,14 @@ describe("My Account test cases (Profile Section).", function () {
 
     myAccountPage
       .getUploadedProfileImg()
-      .should("be.visible")
+      .should("be.visible", { timeout: 20000 })
       .then(($img) => {
-        // Extract the src attribute of the uploaded image
         const changedImageSrc = $img.attr("src");
         cy.wrap(changedImageSrc).as("changedImageSrc");
       });
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
-    cy.wait(8000);
-
+    cy.get(".img-circle", { timeout: 15000 }).should("be.visible");
     cy.get("@changedImageSrc").then((changedImageSrc) => {
       cy.get(".img-circle")
         .should("be.visible")
@@ -577,12 +578,15 @@ describe("My Account test cases (Profile Section).", function () {
     const plantImage = "cypress/fixtures/images/plant.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
-    cy.wait(4000);
+    cy.get("#mat-expansion-panel-header-8", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(2000);
     myAccountPage.clickChangeProfileBtn();
     myAccountPage.clickChangeProfilePictureSection();
     myAccountPage.selectProfileUploadFile(plantImage);
+    cy.get("div[role='presentation']", { timeout: 10000 }).should("be.visible");
     myAccountPage.clickChangeProfileBtn();
-    cy.wait(4000);
+    cy.wait(2000);
   });
 
   // it.skip("Verify if an image size related error is shown for the change profile flow.", () => {
@@ -596,16 +600,17 @@ describe("My Account test cases (Profile Section).", function () {
   // });
 
   it("Verify if the user is able to remove the profile image and check error state.", () => {
-    const LargeSizeImage = "cypress/fixtures/images/50mb.jpg";
     myAccountPage.profileSection();
     myAccountPage.profilePictureSection();
-    cy.wait(4000);
-    myAccountPage.clickChangeProfilePictureSection().should("be.visible");
+    cy.get("#mat-expansion-panel-header-8", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(2000);
+    myAccountPage.getChangeProfilePictureSection().should("be.visible");
     myAccountPage.clickRemoveProfileBtn();
-    cy.wait(8000);
+    cy.wait(5000);
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
-    cy.wait(8000);
+    cy.get(".welcome-text", { timeout: 15000 }).should("be.visible");
     profilePage.userIcon().should("be.visible");
   });
 
@@ -654,13 +659,14 @@ describe("My Account test cases (Profile Section).", function () {
     const imageNumber = 1;
     myAccountPage.profileSection();
     myAccountPage.backgroundPictureSection();
-    cy.wait(5000);
+    cy.get("#mat-expansion-panel-header-9", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(2000);
     myAccountPage.selectImage(imageNumber);
     myAccountPage.clickChangeBackgroundBtn();
-    cy.wait(10000);
     myAccountPage
       .getCurrentBackground()
-      .should("be.visible")
+      .should("be.visible", { timeout: 20000 })
       .then(($img) => {
         const currentBackgroundSrc = $img.attr("src");
         cy.wrap(currentBackgroundSrc).as("currentBackgroundSrc");
@@ -668,17 +674,8 @@ describe("My Account test cases (Profile Section).", function () {
 
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
-    cy.wait(8000);
-    profilePage.banner().should("be.visible");
+    cy.get(".banner", { timeout: 15000 }).should("be.visible");
     profilePage.getProfileBannerBackground().as("profileBackgroundUrl");
-
-    // .then(($div) => {
-    //   const profileBackground = $div.css("background-image");
-    //   const profileBackgroundUrl = profileBackground
-    //     .replace(/^url\(["']?/, "")
-    //     .replace(/["']?\)$/, "");
-    //   cy.wrap(profileBackgroundUrl).as("profileBackgroundUrl");
-    // });
 
     cy.get("@currentBackgroundSrc").then((currentBackgroundSrc) => {
       cy.get("@profileBackgroundUrl").then((profileBackgroundUrl) => {
@@ -692,25 +689,26 @@ describe("My Account test cases (Profile Section).", function () {
 
     myAccountPage.profileSection();
     myAccountPage.backgroundPictureSection();
-    cy.wait(5000);
+    cy.get("#mat-expansion-panel-header-9", { timeout: 15000 })
+      .should("have.attr", "aria-expanded", "true");
+    cy.wait(2000);
     myAccountPage.clickChangeBackgroundSection();
     myAccountPage.selectBackgroundFile(BackgroundFile);
     myAccountPage.moveCropBox(200, 200, 500, 500);
     myAccountPage.dragCropArea(100, 100, 400, 400);
-    myAccountPage.cropMessage();
+    myAccountPage.cropMessage().should("be.visible");
     myAccountPage.clickCropButton();
     myAccountPage.clickChangeBackgroundBtn();
-    cy.wait(10000);
     myAccountPage
       .getCurrentBackground()
-      .should("be.visible")
+      .should("be.visible", { timeout: 20000 })
       .then(($img) => {
         const newUploadedBackground = $img.attr("src");
         cy.wrap(newUploadedBackground).as("newUploadedBackground");
       });
     headerMenu.dropDownMenu();
     headerMenu.selectMyProfile();
-    cy.wait(8000);
+    cy.get(".banner", { timeout: 15000 }).should("be.visible");
     profilePage
       .banner()
       .should("be.visible")

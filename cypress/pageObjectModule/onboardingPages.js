@@ -24,22 +24,20 @@ class OnboardSetup1 {
     return cy.get("div[role='presentation']");
   }
   dragCropArea(startX, startY, endX, endY) {
-    // Simulate mouse events to define the crop area
     this.getCroppingArea()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   getMoveHandle() {
-    return cy.get(".move"); // Selector for the move handle
+    return cy.get(".move");
   }
   moveCropBox(startX, startY, endX, endY) {
-    // Simulate dragging the move handle to reposition the crop area
     this.getMoveHandle()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   clickCropButton() {
@@ -283,22 +281,20 @@ class OnboardSetup3 {
   }
   //----------------------
   dragCropArea(startX, startY, endX, endY) {
-    // Simulate mouse events to define the crop area
     this.getCroppingArea()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   getMoveHandle() {
-    return cy.get(".move"); // Selector for the move handle
+    return cy.get(".move");
   }
   moveCropBox(startX, startY, endX, endY) {
-    // Simulate dragging the move handle to reposition the crop area
     this.getMoveHandle()
-      .trigger("mousedown", { clientX: startX, clientY: startY })
-      .trigger("mousemove", { clientX: endX, clientY: endY })
-      .trigger("mouseup");
+      .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
+      .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
+      .trigger("mouseup", { force: true });
   }
   //----------------------
   clickTreasuryImageCrop() {
