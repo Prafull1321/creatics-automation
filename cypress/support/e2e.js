@@ -30,3 +30,14 @@ if (!app.document.head.querySelector("[data-hide-command-log-request]")) {
 
 import "cypress-mochawesome-reporter/register";
 //import "cypress-mailslurp";
+
+// Block third-party scripts that prevent the page load event from firing
+beforeEach(() => {
+  cy.intercept('GET', '**/*intercom*', { statusCode: 204 });
+  cy.intercept('GET', '**/*widget*', { statusCode: 204 });
+  cy.intercept('GET', '**/*chat*', { statusCode: 204 });
+  cy.intercept('GET', '**/*analytics*', { statusCode: 204 });
+  cy.intercept('GET', '**/*googletagmanager*', { statusCode: 204 });
+  cy.intercept('GET', '**/*stripe*', { statusCode: 204 });
+  cy.intercept('GET', '**/*hotjar*', { statusCode: 204 });
+});

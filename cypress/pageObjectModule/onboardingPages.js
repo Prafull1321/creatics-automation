@@ -55,7 +55,7 @@ class OnboardSetup1 {
   }
   //----------------------
   getWordsTextbox(wordtext) {
-    return cy.get(".inputbox1").type(wordtext);
+    return cy.get(".inputbox1").clear().type(wordtext);
   }
 
   myWordTextboxValue() {
@@ -146,10 +146,11 @@ class OnboardSetup2 {
 
   //-----------------------
   selectFanOption(selectImFan) {
+    const options = Array.isArray(selectImFan) ? selectImFan : [selectImFan];
     cy.get(".slider")
       .filter((index, element) => {
-        const imFanText = Cypress.$(element).text();
-        return selectImFan.includes(imFanText);
+        const imFanText = Cypress.$(element).text().trim();
+        return options.includes(imFanText);
       })
       .then((filteredElements) => {
         cy.wrap(filteredElements).each((el) => {
@@ -159,10 +160,13 @@ class OnboardSetup2 {
   }
   //-----------------------
   selectCreatorOption(selectImCreator) {
+    const options = Array.isArray(selectImCreator)
+      ? selectImCreator
+      : [selectImCreator];
     cy.get(".slider1")
       .filter((index, element) => {
-        const imCreatorText = Cypress.$(element).text();
-        return selectImCreator.includes(imCreatorText);
+        const imCreatorText = Cypress.$(element).text().trim();
+        return options.includes(imCreatorText);
       })
       .then((filteredElements) => {
         cy.wrap(filteredElements).each((el) => {
@@ -210,10 +214,7 @@ class OnboardSetup3 {
   }
   //----------------------
   enterTitleText(text) {
-    cy.get("#title").first().type(text);
-  }
-  emptyTitleText() {
-    return cy.get("#title");
+    cy.get("#title").first().clear().type(text);
   }
   getTitleTextCount() {
     return cy.get("#title").invoke("val");
@@ -233,10 +234,7 @@ class OnboardSetup3 {
   }
   //----------------------
   enterDescriptionText(text) {
-    return cy.get("#description").type(text);
-  }
-  descriptionTextValue() {
-    return cy.get("#description");
+    return cy.get("#description").clear().type(text);
   }
   getDescriptionTextCount() {
     return cy.get("#description").invoke("val");
@@ -248,9 +246,6 @@ class OnboardSetup3 {
   //----------------------
   enterLinkText(text) {
     cy.get('input[name="link"]').clear().type(text);
-  }
-  linkTextValue() {
-    return cy.get('input[name="link"]');
   }
   clearLinkText() {
     cy.get('input[name="link"]').clear();
@@ -282,6 +277,7 @@ class OnboardSetup3 {
   //----------------------
   dragCropArea(startX, startY, endX, endY) {
     this.getCroppingArea()
+      .should("be.visible")
       .trigger("mousedown", { clientX: startX, clientY: startY, force: true })
       .trigger("mousemove", { clientX: endX, clientY: endY, force: true })
       .trigger("mouseup", { force: true });
@@ -298,7 +294,7 @@ class OnboardSetup3 {
   }
   //----------------------
   clickTreasuryImageCrop() {
-    cy.get("div[role='presentation']").click();
+    cy.get(".cropButton").click();
   }
   //----------------------
   getUploadedImage() {
@@ -352,13 +348,9 @@ class OnboardSetup4 {
     return cy.get('button[type="button"]').contains(" Read Less ").click();
   }
   videoSelect(video) {
-    cy.get("input[type=file]").selectFile(
-      video,
-      {
-        force: true,
-      },
-      { timeout: 120000 }
-    );
+    cy.get("input[type=file]", { timeout: 120000 }).selectFile(video, {
+      force: true,
+    });
   }
   readMoreSubText() {
     return cy

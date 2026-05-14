@@ -5,7 +5,7 @@ class ResetVerify {
   verificationSubTitle() {
     return cy
       .get(".ng-untouched")
-      .contaains(
+      .contains(
         "'We've sent a code to your email account. Please enter that code below. "
       )
       .should("be.visible");

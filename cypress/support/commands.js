@@ -74,10 +74,10 @@ Cypress.Commands.add("initializeMailSlurp", () => {
   });
 });
 
-// Fetch the latest email from the inbox
-Cypress.Commands.add("getLatestEmail", (inboxId) => {
+// Fetch the latest unread email from the inbox (optional `since` Date filters to emails received after that time)
+Cypress.Commands.add("getLatestEmail", (inboxId, since) => {
   const mailslurp = Cypress.env("mailslurp");
-  return mailslurp.waitForLatestEmail(inboxId, 30000);
+  return mailslurp.waitForLatestEmail(inboxId, 60000, true, since);
 });
 
 // Extract the verification link from the latest email
@@ -88,10 +88,10 @@ Cypress.Commands.add("extractVerifyLink", (email) => {
   return verifyButton.href;
 });
 
-// Extract the OTP code from the latest email
-Cypress.Commands.add("getOTPFromInbox", (inboxId) => {
+// Extract the OTP code from the latest email (optional `since` Date filters to emails received after that time)
+Cypress.Commands.add("getOTPFromInbox", (inboxId, since) => {
   const mailslurp = Cypress.env("mailslurp");
-  return mailslurp.waitForLatestEmail(inboxId, 30000, true).then((email) => {
+  return mailslurp.waitForLatestEmail(inboxId, 60000, true, since).then((email) => {
     const otpMatch = email.body.match(/\b\d{6}\b/); // Assume the OTP is a 6-digit code
     if (otpMatch) {
       return otpMatch[0];

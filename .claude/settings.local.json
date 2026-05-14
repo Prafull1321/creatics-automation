@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(npx cypress:*)"
+      "Bash(npx cypress:*)",
+      "Bash(tasklist)",
+      "Bash(ls:*)",
+      "Bash(taskkill //F //IM \"Cypress.exe\")",
+      "Bash(taskkill //F //IM \"chrome.exe\")"
     ]
   }
 }

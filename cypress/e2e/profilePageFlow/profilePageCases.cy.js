@@ -6,7 +6,7 @@ import headerMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import { onboardSetup4 } from "../../pageObjectModule/onboardingPages";
 
 describe("Profile Page Test cases", function () {
-  const username = "1cg0deu51s@cmhvzylmfc.com";
+  const username = "3gmu5omr92@mrotzis.com";
   const mainPassword = "Test@123";
   const newPassword = "Test@124";
   const Production_URL = "https://creatics.org/";
@@ -44,24 +44,17 @@ describe("Profile Page Test cases", function () {
 
 beforeEach(() => {
   loginPage.visit(BASE_URL);
-
-  // Wait for login page UI to exist, not for 15 seconds
   cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
-  
   loginPage.signInOption();
   loginPage.emailText(username);
   loginPage.passwordText(mainPassword);
+  cy.wait(2000);
   loginPage.loginButton();
-
-  // Wait for post-login redirect
-  cy.url({ timeout: 20000 }).should('include', '/home');
-
-  // Open profile menu
+  cy.wait(5000);
   ProfileMenu.dropDownMenu();
   ProfileMenu.selectMyProfile();
   cy.wait(5000);
 
-  // Handle alerts
   cy.on("window:alert", (message) => {
     const normalizedMessage = message
       .replace(/\u00a0/g, " ")

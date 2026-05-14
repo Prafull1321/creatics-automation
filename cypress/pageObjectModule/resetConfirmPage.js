@@ -3,14 +3,14 @@ class ResetConfirm {
     return cy
       .get(".card-title")
       .contains("Reset Password")
-      .should("be.vivible");
+      .should("be.visible");
   }
   confirmSubtitle() {
     cy.get(".card-body")
       .contains(
         "Please enter and re-enter your new password. Must be between 6 and 30 characters in length. "
       )
-      .should("be.vivible");
+      .should("be.visible");
   }
   fillResetPassword(password) {
     return cy.get("#exampleInputEmail1").first().clear().type(password);
@@ -22,7 +22,7 @@ class ResetConfirm {
       .type(confirmpass);
   }
   confirmVerifyButton() {
-    cy.get(".btn").contains("Verify").click().should("be.visible");
+    cy.get(".btn").contains("Verify").should("be.visible").click();
   }
   emptyResetPassword() {
     return cy

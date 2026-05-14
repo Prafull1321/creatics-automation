@@ -5,29 +5,20 @@ class LoginPage {
   // }
 
   visit(url) {
+    // Block chat & analytics scripts that keep the load event pending
+    cy.intercept('GET', '**/*intercom*', { statusCode: 204 });
+    cy.intercept('GET', '**/*widget*', { statusCode: 204 });
+    cy.intercept('GET', '**/*chat*', { statusCode: 204 });
+    cy.intercept('GET', '**/*analytics*', { statusCode: 204 });
+    cy.intercept('GET', '**/*googletagmanager*', { statusCode: 204 });
+    cy.intercept('GET', '**/*stripe*', { statusCode: 204 });
+    cy.intercept('GET', '**/*hotjar*', { statusCode: 204 });
+
     return cy.visit(url, {
       failOnStatusCode: false,
       timeout: 180000,
-      //waitUntil: 'domcontentloaded',  // prevents waiting for full page load
     });
   }
-
-//   visit(url) {
-
-//   // Block chat & analytics scripts that keep load open
-//   cy.intercept('GET', '**/*intercom*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*widget*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*chat*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*analytics*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*googletagmanager*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*stripe*', { statusCode: 204 })
-//   cy.intercept('GET', '**/*hotjar*', { statusCode: 204 })
-
-//   return cy.visit(url, {
-//     failOnStatusCode: false,
-//     timeout: 180000
-//   })
-// }
 
   assertUrl(loggedInURL) {
     return cy.url().should("eq", loggedInURL);
