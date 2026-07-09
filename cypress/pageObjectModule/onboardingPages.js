@@ -1,4 +1,9 @@
 class OnboardSetup1 {
+  clickWelcomeGetStarted() {
+    cy.contains("Welcome to Creatics").should("be.visible");
+    cy.contains("button", "Get Started").should("be.visible").click();
+  }
+
   getPageHeading() {
     return cy
       .get(".heading1")

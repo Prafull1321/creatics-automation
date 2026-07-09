@@ -1,6 +1,5 @@
 import LoginPage from "../../pageObjectModule/loginPage";
 import SignUpPage from "../../pageObjectModule/signUpPage";
-import EmailVerification from "../../pageObjectModule/emailVerification";
 import {
   onboardSetup1,
   onboardSetup2,
@@ -73,14 +72,15 @@ describe("Verify Onboarding Flow Test Cases", () => {
       SignUpPage.joinButton();
       cy.wait(5000);
 
-      // Verify the email
-      cy.getLatestEmail(inbox.id).then((email) => {
-        cy.extractVerifyLink(email).then((verifyLink) => {
-          EmailVerification.visitEmailLink(verifyLink);
-
-          cy.wait(20000);
-        });
+      // Verify the email via OTP code
+      SignUpPage.otpPageTitle();
+      cy.getOTPFromInbox(inbox.id).then((otp) => {
+        SignUpPage.fillOTP(otp);
+        SignUpPage.verifyOtpBtn();
       });
+      // Wait for redirect away from verification page after OTP is accepted
+      cy.url({ timeout: 30000 }).should("not.include", "verification");
+      cy.wait(5000);
     });
     cy.on("window:alert", (message) => {
       const normalizedMessage = message
@@ -105,6 +105,16 @@ describe("Verify Onboarding Flow Test Cases", () => {
         // "(confirm) Video is getting uploaded. Please wait for few seconds!",
       ]).to.contains(normalizedMessage1);
     });
+    // Dismiss any notification popup that appears after verification
+    cy.get("body").then(($body) => {
+      if (Cypress.$(".custom-dialog-container:visible").length > 0) {
+        cy.get(".custom-button").should("be.visible").click();
+      }
+    });
+    // Verify we're on the onboarding setup page
+    cy.get(".heading1", { timeout: 15000 }).should("be.visible");
+    // Dismiss any additional notification popup
+    cy.wait(2000);
     cy.get("body").then(($body) => {
       if (Cypress.$(".custom-dialog-container:visible").length > 0) {
         cy.get(".custom-button").should("be.visible").click();
@@ -206,25 +216,27 @@ describe("Verify Onboarding Flow Test Cases", () => {
   });
 
   afterEach(() => {
-    // Runs after each test
+    // Runs after each test — only clean up if user is logged in
     cy.wait(6000);
-    ProfileMenu.dropDownMenu();
-    ProfileMenu.selectMyAccount();
-    cy.wait(10000);
     cy.get("body").then(($body) => {
-      if (Cypress.$(".custom-dialog-container:visible").length > 0) {
-        cy.get(".custom-button").should("be.visible").click();
+      if ($body.find(".dropdown").length > 0) {
+        ProfileMenu.dropDownMenu();
+        ProfileMenu.selectMyAccount();
+        cy.wait(10000);
+        cy.get("body").then(($body2) => {
+          if (Cypress.$(".custom-dialog-container:visible").length > 0) {
+            cy.get(".custom-button").should("be.visible").click();
+          }
+        });
+        myAccountPage.moreOptionSection();
+        myAccountPage.removeButton();
+        cy.wait(4000);
+        myAccountPage.removePopupYesBtn();
+        cy.wait(4000);
+        myAccountPage.removePopupConfirmTextbox("Confirm");
+        myAccountPage.selectRemoveBtnPopup();
+        cy.wait(4000);
       }
     });
-    myAccountPage.moreOptionSection();
-    myAccountPage.removeButton();
-    cy.wait(4000);
-    myAccountPage.removePopupYesBtn();
-    cy.wait(4000);
-    myAccountPage.removePopupConfirmTextbox("Confirm");
-    myAccountPage.selectRemoveBtnPopup();
-    cy.wait(4000);
-    // myAccountPage.gotItBtnRemoved2Popup();
-    // cy.wait(4000);
   });
 });

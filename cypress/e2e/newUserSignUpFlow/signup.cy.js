@@ -3,7 +3,6 @@ import SignUpPage from "../../pageObjectModule/signUpPage";
 import EmailVerification from "../../pageObjectModule/emailVerification";
 import ProfileMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import myAccountPage from "../../pageObjectModule/myAccount/myAccountPage";
-import { onboardSetup2 } from "../../pageObjectModule/onboardingPages";
 
 describe("Sign-Up Page Test Cases", function () {
   const FirstName = "Dhiren";
@@ -245,12 +244,18 @@ describe("Sign-Up Page Test Cases", function () {
       // Check if the "SIGN IN" link is not present (meaning user is logged in)
       if ($body.find('a[href="/login"]').length === 0) {
         // "SIGN IN" link is not present, meaning user is logged in
-        // Proceed with delete flow
-        onboardSetup2.clickPopupGotItButton();
+        // Dismiss any popup/dialog overlay before interacting with the page
+        cy.get("body").then(($body) => {
+          if ($body.find(".custom-dialog-container:visible").length > 0) {
+            cy.get(".custom-button").should("be.visible").click();
+          }
+        });
+
+        // Navigate directly to My Account via dropdown
         ProfileMenu.dropDownMenu();
         ProfileMenu.selectMyAccount();
         cy.wait(10000);
-        // Handle the custom popup if it appears
+        // Handle the custom popup if it appears on My Account page
         cy.get("body").then(($body) => {
           if ($body.find(".custom-dialog-container:visible").length > 0) {
             cy.get(".custom-button").should("be.visible").click();

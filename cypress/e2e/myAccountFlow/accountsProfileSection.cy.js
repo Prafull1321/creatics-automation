@@ -6,7 +6,7 @@ import headerMenu from "../../pageObjectModule/commonComponent/headerMenu";
 import { onboardSetup4 } from "../../pageObjectModule/onboardingPages";
 
 describe("My Account test cases (Profile Section).", function () {
-  const username = "3gmu5omr92@mrotzis.com";
+  const username = "dhiren8921@gmail.com";
   const mainPassword = "Test@123";
   const newPassword = "Test@123";
   // const BASE_URL = "https://creatics.org/";
@@ -16,17 +16,34 @@ describe("My Account test cases (Profile Section).", function () {
   const Dev_URL = "https://dev.creatics.org/";
   const logInURL = "https://dev.creatics.org/userProfiles";
   const BASE_URL = Production_URL;
+  const changedPassword = "Test@124";
 
   beforeEach(() => {
     loginPage.visit(BASE_URL);
-    //cy.get('.dropDownelemets.ng-star-inserted', { timeout: 20000 }).should('be.visible');
     loginPage.assertUrl(BASE_URL);
     loginPage.signInOption();
+
+    // Intercept login API to wait for actual response instead of fixed delay
+    cy.intercept("POST", "**").as("loginRequest");
+
     loginPage.emailText(username);
     loginPage.passwordText(mainPassword);
     cy.wait(2000);
     loginPage.loginButton();
-    cy.wait(5000);
+
+    // Wait for the login API response before proceeding
+    cy.wait("@loginRequest", { timeout: 15000 });
+    cy.wait(3000);
+
+    // Handle case where password was changed by a previous failed run
+    cy.get("body").then(($body) => {
+      if ($body.find(".err-msg").length > 0) {
+        loginPage.passwordText(changedPassword);
+        loginPage.loginButton();
+        cy.wait(5000);
+      }
+    });
+
     ProfileMenu.dropDownMenu();
     ProfileMenu.selectMyAccount();
     cy.wait(8000);
@@ -899,7 +916,6 @@ describe("My Account test cases (Profile Section).", function () {
   });
 
   it("Verify Successful Password Change with Valid Data.", () => {
-    const changedPassword = "Test@124";
     myAccountPage.profileSection();
     myAccountPage.changePaswordSection();
     cy.wait(5000);

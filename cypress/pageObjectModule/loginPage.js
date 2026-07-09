@@ -50,7 +50,7 @@ class LoginPage {
   }
 
   loginButton() {
-    return cy.get(".btn").click();
+    return cy.get(".btn").click({ multiple: true });
   }
 
   loginError() {
