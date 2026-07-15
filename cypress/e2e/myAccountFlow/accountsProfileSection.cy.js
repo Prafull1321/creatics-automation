@@ -703,7 +703,7 @@ describe("My Account test cases (Profile Section).", function () {
 
   it("Verify if the user is able to change the background picture using the upload method.", () => {
     const BackgroundFile = "cypress/fixtures/images/greenss.jpg";
-
+ 
     myAccountPage.profileSection();
     myAccountPage.backgroundPictureSection();
     cy.get("#mat-expansion-panel-header-9", { timeout: 15000 })
@@ -736,7 +736,7 @@ describe("My Account test cases (Profile Section).", function () {
           .replace(/["']?\)$/, "");
         cy.wrap(profileBackgroundUrl).as("profileBackgroundUrl");
       });
-
+ 
     cy.get("@newUploadedBackground").then((newUploadedBackground) => {
       cy.get("@profileBackgroundUrl").then((profileBackgroundUrl) => {
         expect(newUploadedBackground).to.equal(profileBackgroundUrl);
