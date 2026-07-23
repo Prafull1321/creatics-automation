@@ -1,0 +1,53 @@
+name: Weekly Cypress Regression
+
+on:
+  schedule:
+    # Every Wednesday at 05:30 UTC (11:00 AM IST). Adjust the cron if you want a different day/time.
+    - cron: '30 5 * * 3'
+  workflow_dispatch: {}   # lets you trigger manually from the Actions tab
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Cypress specs
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          spec: |
+            cypress/e2e/accountsProfileSection.cy.js,
+            cypress/e2e/signup.cy.js,
+            cypress/e2e/onboardingOneFlow.cy.js
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_MAILSLURP_API_KEY: ${{ secrets.MAILSLURP_API_KEY }}
+
+      - name: Upload mochawesome report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: cypress/reports/**
+          retention-days: 14
+
+      - name: Upload screenshots (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots/**
+          retention-days: 14
