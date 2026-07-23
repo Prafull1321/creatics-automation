@@ -28,10 +28,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           record: true
-          spec: |
-            cypress/e2e/myAccountFlow/accountsProfileSection.cy.js,
-            cypress/e2e/newUserSignUpFlow/signup.cy.js,
-            cypress/e2e/onBoardingFlow/onboardingOneFlow.cy.js
+          spec: cypress/e2e/myAccountFlow/accountsProfileSection.cy.js,cypress/e2e/newUserSignUpFlow/signup.cy.js,cypress/e2e/onBoardingFlow/onboardingOneFlow.cy.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_MAILSLURP_API_KEY: ${{ secrets.MAILSLURP_API_KEY }}
