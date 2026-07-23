@@ -672,7 +672,7 @@ describe("My Account test cases (Profile Section).", function () {
   //   });
   // });
 
-  it.only("Verify if the user is able to edit the background from the default four images.", () => {
+  it("Verify if the user is able to edit the background from the default four images.", () => {
     const imageNumber = 1;
     myAccountPage.profileSection();
     myAccountPage.backgroundPictureSection();
