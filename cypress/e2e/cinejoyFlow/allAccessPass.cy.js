@@ -12,7 +12,7 @@ import cinejoyHomepage from "../../pageObjectModule/cinejoyHomepage";
 describe("Verify All Access Pass Test Cases", () => {
   const FirstName = "Testing";
   const LastName = "Testing";
-  const Password = "Test@123";
+  const Password = "Test@124";
   const Testing_URL = "https://testing.creatics.org/";
   const BASE_URL = Testing_URL;
   let inbox;
