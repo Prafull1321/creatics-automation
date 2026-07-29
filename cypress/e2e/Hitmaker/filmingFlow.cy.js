@@ -3,7 +3,7 @@ import loginPage from "../../pageObjectModule/loginPage";
 
 describe("Hitmaker - Filming Flow", function () {
     const username = "0znclqyo3j@xkxkud.com";
-    const mainPassword = "Test@123";
+    const mainPassword = "Test@124";
     const Testing_URL = "https://testing.creatics.org/";
     const BASE_URL = Testing_URL;
 

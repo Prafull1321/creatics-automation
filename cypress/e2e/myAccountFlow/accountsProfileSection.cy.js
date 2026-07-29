@@ -736,7 +736,7 @@ describe("My Account test cases (Profile Section).", function () {
           .replace(/["']?\)$/, "");
         cy.wrap(profileBackgroundUrl).as("profileBackgroundUrl");
       });
- 
+
     // cy.get("@newUploadedBackground").then((newUploadedBackground) => {
     //   cy.get("@profileBackgroundUrl").then((profileBackgroundUrl) => {
     //     expect(newUploadedBackground).to.equal(profileBackgroundUrl);
