@@ -48,3 +48,5 @@ cypress/fixtures/**/*.png
 
 # Git files
 .gitignore
+# Local Cypress env (holds MAILSLURP_API_KEY)
+cypress.env.json

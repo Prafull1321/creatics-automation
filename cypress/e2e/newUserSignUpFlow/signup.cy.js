@@ -242,7 +242,8 @@ describe("Sign-Up Page Test Cases", function () {
 
     cy.get("body").then(($body) => {
       // Check if the "SIGN IN" link is not present (meaning user is logged in)
-      if ($body.find('a[href="/login"]').length === 0) {
+      // The app renders the sign-in link as /login?referer=, so match by prefix
+      if ($body.find('a[href^="/login"]').length === 0) {
         // "SIGN IN" link is not present, meaning user is logged in
         // Dismiss any popup/dialog overlay before interacting with the page
         cy.get("body").then(($body) => {

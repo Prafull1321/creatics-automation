@@ -44,6 +44,14 @@ import { MailSlurp } from "mailslurp-client";
 
   Cypress.Commands.add("initializeMailSlurp", () => {
     const apiKey = Cypress.env("MAILSLURP_API_KEY");
+    if (!apiKey) {
+      throw new Error(
+        "MAILSLURP_API_KEY is not set. Locally, either export CYPRESS_MAILSLURP_API_KEY=<key> " +
+          "before running Cypress, or create cypress.env.json with " +
+          '{ "MAILSLURP_API_KEY": "<key>" } (gitignored). In CI it comes from the ' +
+          "MAILSLURP_API_KEY GitHub secret."
+      );
+    }
     const mailslurp = new MailSlurp({ apiKey });
 
     // Create a new inbox and store the inbox ID and email address
