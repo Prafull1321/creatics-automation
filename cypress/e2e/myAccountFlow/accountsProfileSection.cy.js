@@ -81,7 +81,7 @@ describe("My Account test cases (Profile Section).", function () {
     });
   });
 
-  it("Verify My Profile (My Information) functionality.", () => {
+  it.only("Verify My Profile (My Information) functionality.", () => {
     const UserInformation = {
       "first-name": "Dhiren",
       "last-name": "Parmar",
